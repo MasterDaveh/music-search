@@ -1,0 +1,28 @@
+{
+  "name": "compucorp-music-search",
+  "version": "1.0.0",
+  "description": "A music search engine powered by Spotify APIs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://MasterDaveh@bitbucket.org/MasterDaveh/compucorp-music-search.git"
+  },
+  "keywords": [
+    "angular",
+    "spotify",
+    "music",
+    "search",
+    "music",
+    "search",
+    "artists",
+    "albums",
+    "discography",
+    "songs"
+  ],
+  "author": "Davide Vico",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/MasterDaveh/compucorp-music-search#readme"
+}
