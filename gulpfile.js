@@ -10,6 +10,7 @@ const concat = require('gulp-concat');
 const uglifyCSS = require('gulp-uglifycss');
 const rename = require('gulp-rename');
 const uncss = require('gulp-uncss');
+const Karma = require('karma').Server;
 
 'use strict';
 
@@ -20,6 +21,11 @@ const errorHandler = (err) => {
   bs.notify( `Error in ${err.relativePath}:${err.line}`, 5000);
   beep();
 }
+
+const karmaCfg = {
+  configFile: __dirname + '/karma.conf.js'  
+};
+
 const APPNAME = 'musicsearch';
 const paths = {
   sass: [ './sass/main.sass', './sass/*.sass', './www/components/**/*.sass' ],
@@ -90,6 +96,10 @@ gulp.task('styles-prod', ['sass'], function(){
     .pipe(gulp.dest(paths.dist.styles));
 });
 
+gulp.task('karma-start', function(done) {
+  new Karma(karmaCfg, done).start();
+});
+
 gulp.task('build', ['scripts-prod', 'styles-prod']);
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve', 'karma-start']);
