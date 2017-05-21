@@ -1,0 +1,14 @@
+- var env = 'DEV';
+
+- if ( env === 'DEV' ) {
+  
+  link( href="./main.css" rel="stylesheet" )
+
+- } else if ( env === 'PROD' ) {
+  
+- } else {
+
+  script( type="text/javascript" )
+    | alert(`Environment configuration error. Cannot resolve ${ env } environment`);
+
+- }
