@@ -1,0 +1,29 @@
+// ----------------------- MIXINS
+@mixin font($opts)
+  font:
+    @if map-has-key($opts, s) 
+      size: map-get($opts, s)
+    @if map-has-key($opts, w) 
+      weight: map-get($opts, w)
+  @if map-has-key($opts, c) 
+    color: map-get($opts, c)
+  @if map-has-key($opts, lh)
+    line-height: map-get($opts, lh)
+
+@mixin size( $val )
+  height: $val
+  width: $val
+
+// ----------------------- FONT
+
+$baseline: 16px
+$base-lheight: #{ $baseline * 1.6 }
+
+// colors
+$pink:   #ce4283
+$dpink:  #b2455d
+$lpink:  #d05d84
+
+$dgray:  #333441
+$gray:   #383a49
+$lgray:  #454756

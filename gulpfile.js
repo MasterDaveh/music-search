@@ -29,7 +29,7 @@ const karmaCfg = {
 const APPNAME = 'musicsearch';
 const paths = {
   sass: [ './sass/main.sass', './sass/*.sass', './www/components/**/*.sass' ],
-  pug: [ './www/index.pug', './www/components/**/*.pug' ],
+  pug: [ './www/index.pug', './www/components/**/*.pug', './www/includes/*.pug' ],
   html: [ './www/index.html', './www/components/**/*.html' ],
   scripts: [ './www/js/**/*.js', '!./www/js/external/*' ],
   barrels: {},
@@ -56,7 +56,10 @@ const onPugChange = (e) => {
   const relPath = e.path.slice( e.path.indexOf('www') );
 
   console.log(`pug: ${ relPath } updated`);
-  compilePug(relPath, bs.reload);
+  compilePug(relPath);
+  // if the file which triggered the task was included 
+  // in the index we need to compile it for updates to show
+  compilePug('./www/index.pug', bs.reload);
 }
 
 gulp.task('serve', ['sass'], function(){
@@ -102,4 +105,4 @@ gulp.task('karma-start', function(done) {
 
 gulp.task('build', ['scripts-prod', 'styles-prod']);
 
-gulp.task('default', ['serve', 'karma-start']);
+gulp.task('default', ['serve']);
