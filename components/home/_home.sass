@@ -1,0 +1,88 @@
+main
+  margin: 0 #{ $baseline * 3 }
+  padding: 0
+  background: $pink
+  background: linear-gradient($pink 10%, $dpink 90%)
+
+  .header
+    &--block
+      +font((s: $baseline, w: 500, c: white))
+      padding: #{ $baseline * 3 }
+      padding-bottom: 0
+
+      img
+        max-width: #{ $baseline * 6 }
+
+  .main
+    &--header
+      display: flex
+      justify-content: space-between
+    
+    &--hero
+      text-align: center
+      padding-bottom: #{ $baseline * 2 }
+      margin-top: - #{ $baseline * 4 }
+      
+      img#headset
+        width: 50%
+      
+      img#arrow
+        width: #{ $baseline * 3 }
+      
+      img#arrow, img#headset
+        display: block
+        margin: 0 auto
+
+.search
+  background: white
+  border-radius: #{ $baseline * 4 }
+  margin: $baseline auto
+
+  width: #{ $baseline * 50 }
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+  &--box
+    width: 100%
+    
+    input
+      margin: $baseline
+      display: inline-block
+      background: transparent
+      border: 0 solid transparent
+      outline: none
+      width: 100%
+      +font(( s: $baseline, c: $lgray, w: 400, lh: $base-lheight))
+  
+  &--button
+    background: $lpink
+    padding: $baseline #{ $baseline * 2 }
+    border-radius: #{ $baseline * 2 }
+    margin: #{ $baseline / 4 }
+    +font(( s: $baseline, w: 700, c: white ))
+
+.results
+  background: $gray
+  margin: 0 #{ $baseline * 3 }
+
+  &--empty
+    padding: #{ $baseline * 6 }
+
+    display: flex
+    flex-direction: column
+    align-items: center
+
+    img#glass
+      width: #{ $baseline * 11 }
+    
+    span
+      margin-top: #{ $baseline * 2 }
+      +font(( c: $lgray, s: #{ $baseline * 1.5 }, w: 400 ))
+
+footer
+  padding: #{ $baseline * 2 }
+  text-align: center
+
+  span
+    color: white
