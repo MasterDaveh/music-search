@@ -10,8 +10,8 @@ main
       padding: #{ $baseline * 3 }
       padding-bottom: 0
 
-      img
-        max-width: #{ $baseline * 6 }
+      img#gklabel
+        max-width: 6vw
 
   .main
     &--header
@@ -38,7 +38,7 @@ main
   border-radius: #{ $baseline * 4 }
   margin: $baseline auto
 
-  width: #{ $baseline * 50 }
+  width: 70%
   display: flex
   align-items: center
   justify-content: space-between
@@ -61,12 +61,17 @@ main
     border-radius: #{ $baseline * 2 }
     margin: #{ $baseline / 4 }
     +font(( s: $baseline, w: 700, c: white ))
+    cursor: pointer
+    outline: none
+    border: 0
+
+    &:active
+      opacity: 0.8
 
 .results
-  background: $gray
-  margin: 0 #{ $baseline * 3 }
-
   &--empty
+    background: $gray
+    margin: 0 #{ $baseline * 3 }
     padding: #{ $baseline * 6 }
 
     display: flex
@@ -79,6 +84,8 @@ main
     span
       margin-top: #{ $baseline * 2 }
       +font(( c: $lgray, s: #{ $baseline * 1.5 }, w: 400 ))
+  
+  &--matches
 
 footer
   padding: #{ $baseline * 2 }

@@ -1,21 +1,38 @@
-main
-  .main--header
-    .header--block
-      img( src="assets/Images/gl-logo@2x.png" )
-    .header--block Powered by Spotify
-  .main--hero
-    img#headset( src="assets/Images/hero-img@2x.png" )
-    img#arrow( src="assets/Images/Page 1@2x.png" )
-.search
-  .search--box
-    input( placeholder="Search for artist or album title" )
-  .search--button SEARCH
+.home( ng-controller="homeCtrl" )
+  main
+    .main--header
+      .header--block
+        img#gklabel( src="assets/Images/gl-logo@2x.png" )
+      .header--block Powered by Spotify
+    .main--hero
+      img#headset( src="assets/Images/hero-img@2x.png" )
+      img#arrow( src="assets/Images/Page 1@2x.png" )
+  form.search
+    .search--box
+      input( 
+        placeholder="Search for artist or album title"
+        ng-model="query"
+      )
+    button.search--button( ng-click="search(query)" ) SEARCH
 
-.results
-  .results--empty
+  .results--empty( ng-if="!results || results.length === 0" )
     img#glass( src="assets/Images/Magnify@2x.png" )
     span Your results will appear here
-  .results--matches
-    
-footer
-  span Designed by Geek Label - Powered by Spotify
+
+  .results--matches( ng-if="results.length > 0" )
+    .result--card( ng-repeat="result in results" )
+      .card--pic 
+        img( ng-src="{{ ::getPic(result) }}" )
+        .card--badge
+          img( 
+            ng-if="result.type === 'album'"
+            src="assets/Images/album-icon@2x.png"
+          )
+          img( 
+            ng-if="result.type === 'artist'"
+            src="assets/Images/artist-icon@2x.png"
+          )
+      .card--title {{ result.name }}
+      
+  footer
+    span Designed by Geek Label - Powered by Spotify

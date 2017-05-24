@@ -9,8 +9,8 @@ main {
     color: white;
     padding: 48px;
     padding-bottom: 0; }
-    main .header--block img {
-      max-width: 96px; }
+    main .header--block img#gklabel {
+      max-width: 6vw; }
   main .main--header {
     display: flex;
     justify-content: space-between; }
@@ -30,7 +30,7 @@ main {
   background: white;
   border-radius: 64px;
   margin: 16px auto;
-  width: 800px;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: space-between; }
@@ -54,23 +54,27 @@ main {
     margin: 4px;
     font-size: 16px;
     font-weight: 700;
-    color: white; }
+    color: white;
+    cursor: pointer;
+    outline: none;
+    border: 0; }
+    .search--button:active {
+      opacity: 0.8; }
 
-.results {
+.results--empty {
   background: #383a49;
-  margin: 0 48px; }
-  .results--empty {
-    padding: 96px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; }
-    .results--empty img#glass {
-      width: 176px; }
-    .results--empty span {
-      margin-top: 32px;
-      font-size: 24px;
-      font-weight: 400;
-      color: #454756; }
+  margin: 0 48px;
+  padding: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .results--empty img#glass {
+    width: 176px; }
+  .results--empty span {
+    margin-top: 32px;
+    font-size: 24px;
+    font-weight: 400;
+    color: #454756; }
 
 footer {
   padding: 32px;
