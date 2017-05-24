@@ -31,7 +31,7 @@ const paths = {
   sass: [ './sass/main.sass', './sass/*.sass', './www/components/**/*.sass' ],
   pug: [ './www/index.pug', './www/components/**/*.pug', './www/includes/*.pug' ],
   html: [ './www/index.html', './www/components/**/*.html' ],
-  scripts: [ './www/js/**/*.js', '!./www/js/external/*' ],
+  scripts: [ './www/js/**/*.js', '!./www/js/external/*', './www/components/**/*.js' ],
   barrels: {},
   dist: {
     scripts: './www/dist/',
@@ -66,6 +66,7 @@ gulp.task('serve', ['sass'], function(){
     bs.init({ server: './www/' });
     gulp.watch(paths.sass, ['sass']);
     gulp.watch(paths.pug, onPugChange);
+    gulp.watch(paths.scripts, bs.reload);
 });
 
 // Compile sass into CSS & auto-inject into browsers
@@ -99,7 +100,7 @@ gulp.task('styles-prod', ['sass'], function(){
     .pipe(gulp.dest(paths.dist.styles));
 });
 
-gulp.task('karma-start', function(done) {
+gulp.task('test', function(done) {
   new Karma(karmaCfg, done).start();
 });
 

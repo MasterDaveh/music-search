@@ -1,0 +1,22 @@
+- var env = 'DEV';
+
+- if ( env === 'DEV' ) {
+  
+  script( src="./js/external/angular.js" type="text/javascript")
+
+  script( src="./js/base.js" type="text/javascript")
+  script( src="./js/services/utils.js" type="text/javascript")
+  script( src="./js/services/spotify.js" type="text/javascript")
+
+  script( src="./components/home/home.controller.js" type="text/javascript")
+
+- } else if ( env === 'PROD' ) {
+
+  script( src="./dist/musicsearch.bundle.js" type="text/javascript")
+  
+- } else {
+
+  script( type="text/javascript" )
+    | alert(`Environment configuration error. Cannot resolve ${ env } environment`);
+
+- }

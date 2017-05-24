@@ -26,6 +26,7 @@
   "license": "MIT",
   "homepage": "https://bitbucket.org/MasterDaveh/compucorp-music-search#readme",
   "devDependencies": {
+    "angular-mocks": "^1.6.4",
     "babel-preset-env": "^1.5.0",
     "babel-preset-es2015": "^6.24.1",
     "beepbeep": "^1.2.1",
@@ -44,5 +45,8 @@
     "karma": "^1.7.0",
     "karma-chrome-launcher": "^2.1.1",
     "karma-jasmine": "^1.1.0"
+  },
+  "dependencies": {
+    "angular": "^1.6.4"
   }
 }
