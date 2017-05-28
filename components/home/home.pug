@@ -14,25 +14,30 @@
         ng-model="query"
       )
     button.search--button( ng-click="search(query)" ) SEARCH
+  
+  .results--wrapper
+    .results--empty( ng-if="!results || results.length === 0" )
+      img#glass( src="assets/Images/Magnify@2x.png" )
+      span Your results will appear here
 
-  .results--empty( ng-if="!results || results.length === 0" )
-    img#glass( src="assets/Images/Magnify@2x.png" )
-    span Your results will appear here
-
-  .results--matches( ng-if="results.length > 0" )
-    .result--card( ng-repeat="result in results" )
-      .card--pic 
-        img( ng-src="{{ ::getPic(result) }}" )
-        .card--badge
-          img( 
-            ng-if="result.type === 'album'"
-            src="assets/Images/album-icon@2x.png"
-          )
-          img( 
-            ng-if="result.type === 'artist'"
-            src="assets/Images/artist-icon@2x.png"
-          )
-      .card--title {{ result.name }}
-      
+    .results--matches( ng-if="results.length > 0" )
+      .result--card( ng-repeat="result in results" )
+        .card--pic( style="background-image: url({{ ::getPic(result) }})" )
+          .card--badge
+            img( 
+              ng-if="result.type === 'album'"
+              src="assets/Images/album-icon@2x.png"
+            )
+            img( 
+              ng-if="result.type === 'artist'"
+              src="assets/Images/artist-icon@2x.png"
+            )
+          .card--overlay
+        .card--title {{ result.name }}
+      .extra--card
+      .extra--card
+      .extra--card
+  .results--more
+    .results--button SHOW ME MORE!  
   footer
     span Designed by Geek Label - Powered by Spotify

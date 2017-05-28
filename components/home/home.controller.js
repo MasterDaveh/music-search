@@ -12,6 +12,9 @@ home.controller('homeCtrl', function( $scope, spotify ){
     });
   };
 
+  // TEST
+  $scope.search('eminem');
+
   $scope.getPic = (result) => {
     let pic = '';
     // track
@@ -22,7 +25,7 @@ home.controller('homeCtrl', function( $scope, spotify ){
       if(result.images.length === 1){
         pic = result.images[0];
       } else if( result.images.length > 0 ){
-        pic = result.images[ result.images.length - 2 ];
+        pic = result.images[1];
       }
     }
     return pic.url;
