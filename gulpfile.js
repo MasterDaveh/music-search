@@ -33,9 +33,12 @@ const paths = {
   html: [ './www/index.html', './www/components/**/*.html' ],
   scripts: [ './www/js/**/*.js', '!./www/js/external/*', './www/components/**/*.js' ],
   barrels: {},
-  dist: {
-    scripts: './www/dist/',
-    styles: './www/dist/'
+  prod: {
+    scripts: './www/build/prod/',
+    styles: './www/build/prod/'
+  }, dev: {
+    scripts: './www/build/dev/js/',
+    styles: './www/build/dev/css/'
   }
 };
 paths.barrels.sass = paths.sass[0];
@@ -47,6 +50,14 @@ const compilePug = ( target, cb = emptyFn ) => {
     .pipe(pug({ pretty: true }))
     // compile file in the origin folder
     .pipe(gulp.dest( (file) => file.base ))
+    .on('end', cb);
+}
+
+const transpileJs = (target, cb = emptyFn) => {
+  return gulp.src(target)
+    .pipe(plumber({ errorHandler }))
+    .pipe(babel())
+    .pipe(gulp.dest( paths.dev.scripts ))
     .on('end', cb);
 }
 
@@ -62,11 +73,20 @@ const onPugChange = (e) => {
   compilePug('./www/index.pug', bs.reload);
 }
 
-gulp.task('serve', ['sass'], function(){
+const onJsChange = (e) => {
+  // converting absolute in relative path
+  // the base dir is ./www, removing everything before
+  const relPath = e.path.slice( e.path.indexOf('www') );
+
+  console.log(`js: ${ relPath } updated`);
+  transpileJs(relPath, bs.reload);
+}
+
+gulp.task('serve', ['sass', 'pug', 'babel'], function(){
     bs.init({ server: './www/' });
     gulp.watch(paths.sass, ['sass']);
     gulp.watch(paths.pug, onPugChange);
-    gulp.watch(paths.scripts, bs.reload);
+    gulp.watch(paths.scripts, onJsChange, bs.reload);
 });
 
 // Compile sass into CSS & auto-inject into browsers
@@ -74,7 +94,7 @@ gulp.task('sass', function(){
    gulp.src(paths.barrels.sass)
     .pipe(plumber({ errorHandler }))
     .pipe(sass())
-    .pipe(gulp.dest('./www/'))
+    .pipe(gulp.dest( paths.dev.styles ))
     .pipe(bs.stream());
 });
 
@@ -82,13 +102,17 @@ gulp.task('pug', function() {
   compilePug( paths.pug );
 });
 
-gulp.task('scripts-prod', function(){
-  gulp.src(paths.scripts)
+gulp.task('babel', function() {
+  transpileJs( paths.scripts );
+});
+
+gulp.task('scripts-prod', ['babel'], function(){
+  gulp.src(`${ paths.dev.scripts }**/*.js`)
     .pipe(plumber({ errorHandler }))
     .pipe(babel())
     .pipe(concat(`${APPNAME}.bundle.js`))
     .pipe(uglify())
-    .pipe(gulp.dest(paths.dist.scripts));
+    .pipe(gulp.dest(paths.prod.scripts));
 });
 
 gulp.task('styles-prod', ['sass'], function(){
@@ -97,7 +121,7 @@ gulp.task('styles-prod', ['sass'], function(){
     .pipe(plumber({ errorHandler }))
     .pipe(rename(`${APPNAME}.min.css`))
     .pipe(uglifyCSS())
-    .pipe(gulp.dest(paths.dist.styles));
+    .pipe(gulp.dest(paths.prod.styles));
 });
 
 gulp.task('test', function(done) {
@@ -105,5 +129,4 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('build', ['scripts-prod', 'styles-prod']);
-
 gulp.task('default', ['serve']);

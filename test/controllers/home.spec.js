@@ -28,7 +28,7 @@ describe('homeCtrl', () => {
     })
   });
 
-  it('should return the second-last item', () => {
+  it('should return the second item', () => {
     expect( scope.getPic({ images }) ).toEqual( images[1] );
   });
 

@@ -1,3 +1,5 @@
-assets/
+www/assets/fonts/
 node_modules/
 *.log
+www/js/external/
+www/build/

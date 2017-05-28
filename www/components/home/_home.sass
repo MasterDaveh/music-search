@@ -1,3 +1,16 @@
+@mixin pink-button
+  background: $lpink
+  padding: #{ $baseline / 2 } #{ $baseline * 2 }
+  border-radius: #{ $baseline * 2 }
+  margin: #{ $baseline / 4 }
+  +font(( s: $baseline, w: 500, c: white ))
+  cursor: pointer
+  outline: none
+  border: 0
+
+  &:active
+    opacity: 0.8
+  
 main
   margin: 0 #{ $baseline * 3 }
   padding: 0
@@ -11,7 +24,7 @@ main
       padding-bottom: 0
 
       img#gklabel
-        max-width: 6vw
+        max-width: 8vw
 
   .main
     &--header
@@ -47,7 +60,7 @@ main
     width: 100%
     
     input
-      margin: $baseline
+      margin: #{ $baseline / 2 }
       display: inline-block
       background: transparent
       border: 0 solid transparent
@@ -56,19 +69,15 @@ main
       +font(( s: $baseline, c: $lgray, w: 400, lh: $base-lheight))
   
   &--button
-    background: $lpink
-    padding: $baseline #{ $baseline * 2 }
-    border-radius: #{ $baseline * 2 }
-    margin: #{ $baseline / 4 }
-    +font(( s: $baseline, w: 700, c: white ))
-    cursor: pointer
-    outline: none
-    border: 0
-
-    &:active
-      opacity: 0.8
+    +pink-button
 
 .results
+
+  &--wrapper
+    width: 100%
+    display: flex
+    justify-content: center
+
   &--empty
     background: $gray
     margin: 0 #{ $baseline * 3 }
@@ -86,6 +95,67 @@ main
       +font(( c: $lgray, s: #{ $baseline * 1.5 }, w: 400 ))
   
   &--matches
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-around
+    align-items: flex-start
+    max-width: #{ $baseline * 80 }
+    margin: auto #{ $baseline * 3 }
+  
+  &--more
+    width: 100%
+    display: flex
+    justify-content: center
+    margin: $baseline auto
+
+  &--button
+    +pink-button
+
+
+.result--card
+  width: #{ $baseline * 17 }
+  margin-right: #{ $baseline * 2 }
+  margin-top: #{ $baseline * 4 }
+  box-shadow: 0px 0px 20px 2px rgba(black, 0.2)
+
+  .card--pic
+    height: #{ $baseline * 17 }
+    background:
+      size: cover
+      position: center center
+      repeat: no-repeat
+    border-radius: 4px 4px 0 0
+    position: relative
+
+    .card--badge
+      position: absolute
+      bottom: $baseline
+      left: $baseline
+
+      img
+        height: #{ $baseline * 2 }
+
+    .card--overlay
+      +size( 100% )
+      background: rgba(black, 0.3)
+      border-radius: 4px 4px 0 0
+    
+  .card--title
+    height: #{ $baseline * 3 }
+    padding: $baseline
+    background: white
+    border-radius: 0 0 4px 4px
+    +font(( c: $dgray, w: 600 ))
+
+// used to fill empty space on last row force all the cards
+// to be left-aligned
+// see https://stackoverflow.com/questions/16377972/how-to-align-left-last-row-line-in-multiple-line-flexbox
+.extra--card
+  height: 0
+  width: #{ $baseline * 17 }
+  margin-right: #{ $baseline * 2 }
+  margin-top: #{ $baseline * 4 }
+
 
 footer
   padding: #{ $baseline * 2 }
