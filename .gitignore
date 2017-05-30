@@ -3,5 +3,4 @@ node_modules/
 *.log
 www/js/external/
 www/build/
-*.html
 .vscode/

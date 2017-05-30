@@ -12,9 +12,6 @@ home.controller('homeCtrl', function( $scope, spotify ){
     });
   };
 
-  // TEST
-  $scope.search('eminem');
-
   $scope.getPic = (result) => {
     let pic = '';
     // track
@@ -30,5 +27,18 @@ home.controller('homeCtrl', function( $scope, spotify ){
     }
     return pic.url;
   }
+
+  $scope.more = () => { 
+    spotify.searchMore($scope.query, (results) => {
+      $scope.results.push( ...results );
+    });
+  }
+
+
+  const runTest = () => {
+    $scope.query = 'twenty one pilots';
+    $scope.search($scope.query);
+  }
+  runTest();
 
 });

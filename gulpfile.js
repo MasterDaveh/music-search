@@ -57,6 +57,7 @@ const transpileJs = (target, cb = emptyFn) => {
   return gulp.src(target)
     .pipe(plumber({ errorHandler }))
     .pipe(babel())
+    .pipe(rename({dirname: ''}))
     .pipe(gulp.dest( paths.dev.scripts ))
     .on('end', cb);
 }
