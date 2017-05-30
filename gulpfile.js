@@ -11,6 +11,7 @@ const uglifyCSS = require('gulp-uglifycss');
 const rename = require('gulp-rename');
 const uncss = require('gulp-uncss');
 const Karma = require('karma').Server;
+const autoprefixer = require('gulp-autoprefixer');
 
 'use strict';
 
@@ -92,9 +93,15 @@ gulp.task('serve', ['sass', 'pug', 'babel'], function(){
 
 // Compile sass into CSS & auto-inject into browsers
 gulp.task('sass', function(){
+  const options = {
+    browsers: ['last 2 versions'],
+    cascade: false
+  };
+  
    gulp.src(paths.barrels.sass)
     .pipe(plumber({ errorHandler }))
     .pipe(sass())
+    .pipe(autoprefixer( options ))
     .pipe(gulp.dest( paths.dev.styles ))
     .pipe(bs.stream());
 });

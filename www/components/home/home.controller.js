@@ -34,7 +34,7 @@ home.controller('homeCtrl', function( $scope, spotify ){
     });
   }
 
-
+  // TO BE REMOVED FOR PRODUCTION
   const runTest = () => {
     $scope.query = 'twenty one pilots';
     $scope.search($scope.query);

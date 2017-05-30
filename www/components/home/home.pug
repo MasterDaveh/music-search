@@ -1,5 +1,5 @@
 .home( ng-controller="homeCtrl" )
-  main
+  .main
     .main--header
       .header--block
         img#gklabel( src="assets/Images/gl-logo@2x.png" )
@@ -22,7 +22,10 @@
 
     .results--matches( ng-if="results.length > 0" )
       .result--card( ng-repeat="result in results" )
-        .card--pic( style="background-image: url({{ ::getPic(result) }})" )
+        .card--pic( 
+            style="background-image: url( {{ ::getPic(result) }} )"
+            ng-attr-style="background-image: url( {{ ::getPic(result) }} )"
+          )
           .card--badge
             img( 
               ng-if="result.type === 'album'"
