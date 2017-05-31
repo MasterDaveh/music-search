@@ -8,7 +8,7 @@ home.controller('homeCtrl', function( $scope, spotify ){
 
   $scope.search = (query) => {
     spotify.search( query, (results) => {
-      $scope.results = results;
+      $scope.results = spotify.normalize(results);
     });
   };
 
@@ -16,7 +16,7 @@ home.controller('homeCtrl', function( $scope, spotify ){
     let pic = '';
     // track
     if( !result.images ){
-      pic = $scope.getPic(result.album);
+      pic = { url: $scope.getPic(result.album) };
     } else {
       //  albums/artists
       if(result.images.length === 1){
@@ -34,11 +34,26 @@ home.controller('homeCtrl', function( $scope, spotify ){
     });
   }
 
+  $scope.showBlurred = (result) => {
+    return ['all_albums', 'all_tracks'].indexOf(result.type) > -1;
+  }
+
+  $scope.showAll = ( item ) => {
+    const options = {
+      queryArtists: item.artists || [{name: item.name}],
+      albums: item.type === 'all_albums',
+      tracks: item.type === 'all_tracks'
+    }
+    spotify.get(options, (result) => {
+      console.log( result );
+    });
+  }
+
   // TO BE REMOVED FOR PRODUCTION
   const runTest = () => {
-    $scope.query = 'twenty one pilots';
+    $scope.query = 'twenty one';
     $scope.search($scope.query);
   }
-  runTest();
+  // runTest();
 
 });

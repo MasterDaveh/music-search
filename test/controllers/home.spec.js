@@ -29,7 +29,7 @@ describe('homeCtrl', () => {
   });
 
   it('should return the second item', () => {
-    expect( scope.getPic({ images }) ).toEqual( images[1] );
+    expect( scope.getPic({ images }) ).toEqual( images[1].url );
   });
 
 });
