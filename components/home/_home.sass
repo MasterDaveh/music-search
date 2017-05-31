@@ -119,6 +119,28 @@
   margin-top: #{ $baseline * 4 }
   box-shadow: 0px 0px 20px 2px rgba(black, 0.2)
   cursor: pointer
+  position: relative
+  overflow: hidden
+
+  .card--viewall
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: #{ $baseline * 3 }
+
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+
+    img
+      width: 40%
+      height: 30%
+
+    .viewall--text
+      +font(( s: $baseline, c: white, w: 500 ))
+      margin-top: $baseline
 
   .card--pic
     height: #{ $baseline * 17 }
@@ -128,6 +150,11 @@
       repeat: no-repeat
     border-radius: 4px 4px 0 0
     position: relative
+    overflow: hidden
+
+    &.card--pic__blurred
+      .card--overlay
+        background: rgba(black, 0.7)
 
     .card--badge
       position: absolute
@@ -149,9 +176,9 @@
     border-radius: 0 0 4px 4px
     +font(( c: $dgray, w: 600 ))
 
-// used to fill empty space on last row force all the cards
-// to be left-aligned
-// see https://stackoverflow.com/questions/16377972/how-to-align-left-last-row-line-in-multiple-line-flexbox
+// used to fill empty space on last row to force all the cards
+// to be left-aligned, see:
+// https://stackoverflow.com/questions/16377972/how-to-align-left-last-row-line-in-multiple-line-flexbox
 .extra--card
   height: 0
   width: #{ $baseline * 17 }

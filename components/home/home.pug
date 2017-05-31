@@ -25,6 +25,7 @@
         .card--pic( 
             style="background-image: url( {{ ::getPic(result) }} )"
             ng-attr-style="background-image: url( {{ ::getPic(result) }} )"
+            ng-class="{'card--pic__blurred': {{ ::showBlurred(result) }} }"
           )
           .card--badge
             img( 
@@ -36,6 +37,13 @@
               src="assets/Images/artist-icon@2x.png"
             )
           .card--overlay
+        .card--viewall( 
+          ng-if="::showBlurred(result)"
+          ng-click="showAll(result)"
+        )
+          img( src="assets/Images/Bitmap@2x.png" )
+          span.viewall--text( ng-if="result.type === 'all_albums'" ) View Albums
+          span.viewall--text( ng-if="result.type === 'all_tracks'" ) View Tracks
         .card--title {{ result.name }}
       .extra--card
       .extra--card
