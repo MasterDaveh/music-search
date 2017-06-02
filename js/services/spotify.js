@@ -1,11 +1,11 @@
 const spot = angular.module('spotifySrvc', ['utils']);
 
-spot.factory('spotify', function(ajax, arrays, lstorage){
+spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
   const baseURL = 'https://api.spotify.com/v1';
-  const CLIENT_ID = '0bd2b7d36b5344faa55a8d4cf0ee104b';
   const REDIRECT_URI = encodeURIComponent( window.location.href );
   let lastQuery = '';
   let pageIdx = 0;
+
   const TOKEN_KEY = 'access_token';
 
   // organize the results in such a way that:
@@ -51,17 +51,10 @@ spot.factory('spotify', function(ajax, arrays, lstorage){
     }
   }
 
-  const checkIfExpired = ( token, requestNew ) => {
-    // TODO: to implement
-    return;
-  }
-
   // authorization process for the spotify search api
   const authorize = () => {
     let token = lstorage.get(TOKEN_KEY);
-    if( token ){
-      checkIfExpired( token, authorize );
-    } else {
+    if( !token ){
       // if the token param is present in the querystring it means
       // the user was redirected to the page from the spotify api login
       if( window.location.href.indexOf(TOKEN_KEY) === -1 ){
@@ -72,12 +65,12 @@ spot.factory('spotify', function(ajax, arrays, lstorage){
         url += '&state=118';
         window.location.href = url;
       } else {
-        // recover the access token
+        // retrieve ACCESS_TOKEN from url
         const pageURL = window.location.href;
-        const idx = pageURL.indexOf('access_token');
+        const idx = pageURL.indexOf('TOKEN_KEY');
         token = pageURL.slice( pageURL.indexOf('=', idx)+1, pageURL.indexOf('&', idx) );
-        window.location.href = pageURL.slice(0, pageURL.indexOf('#'))
         lstorage.set(TOKEN_KEY, token);
+        window.location.href = pageURL.slice(0, pageURL.indexOf('#'));
       }
     }
   }
