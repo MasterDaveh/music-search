@@ -1,3 +1,5 @@
+- var env = 'DEV';
+
 doctype html
 html
   head
@@ -11,8 +13,7 @@ html
     
   body(
     ng-app="base"
-    ng-class="{'blocked-scroll': openAllAlbumsModal, 'all-albums__visible': openAllAlbumsModal}"
+    ng-class="{'blocked-scroll': openAlbumsModal || openTracksModal, 'albums__visible': openAlbumsModal, 'tracks__visible': openTracksModal}"
   )
     include components/home/home.pug
-
     include includes/scripts.pug

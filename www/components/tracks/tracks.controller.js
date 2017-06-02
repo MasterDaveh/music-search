@@ -1,14 +1,16 @@
-angular.module('albums', ['modalHelper'])
+angular.module('tracks', ['modalHelper'])
 
-.controller('albumsCtrl', function($scope, modalHelper){
+.controller('tracksCtrl', function($scope, modalHelper){
 
   $scope.model = [];
-
-  const _modalID = 'openAlbumsModal';
+  const _modalID = 'openTracksModal';
 
   modalHelper.on('reset', (modalId) => {
     if( _modalID === modalId ){
       $scope.model = modalHelper.getModel();
+      $scope.model.tracks.forEach((track) => {
+        track.duration = moment.utc(track.duration_ms).format("m:ss")
+      });
     }
   });
   

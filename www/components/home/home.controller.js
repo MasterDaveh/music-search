@@ -9,9 +9,8 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
   $scope.modalItems = [];
   $scope.modelChanged = false;
 
-  $rootScope.openAllAlbumsModal = false;
-  // $rootScope.openAllAlbumsModal = false;
-  // $rootScope.openAllAlbumsModal = false;
+  $rootScope.openAlbumsModal = false;
+  $rootScope.openTracksModal = false;
 
   const allowedTypes = ['all_albums', 'top_tracks', 'album'];
 
@@ -50,41 +49,59 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
   }
 
   $scope.showBlurred = (result) => {
-    return ['all_albums', 'top_tracks'].includes(result.type);
+    return ['all_albums', 'top_tracks'].indexOf(result.type) > - 1;
   }
 
   $scope.show = function (item) {
-    if( !allowedTypes.includes(item.type) ) return;
+    if( allowedTypes.indexOf(item.type) === -1 ) return;
 
     if( item.type === 'all_albums' ){
-      spotify.getAlbumsByArtistID( item.id, (result) => {
+      spotify.getAlbumsByArtistID( item.id, (albums) => {
         const model = {
           header: {
             pic: $scope.getPic(item),
             name: item.name
           }, 
-          albums: result,
-          modalId: 'openAllAlbumsModal'
+          albums,
+          modalId: 'openAlbumsModal'
         }
         modalHelper.setModel(model);
-        $rootScope.openAllAlbumsModal = true;
+        $rootScope.openAlbumsModal = true;
       });
     } else if( item.type === 'top_tracks' ){
-      spotify.getTracksByArtistID( item.id, (result) => {
-      
+      spotify.getTracksByArtistID( item.id, (tracks) => {
+        const model = {
+          header: {
+            pic: $scope.getPic(item),
+            name: item.name
+          }, 
+          tracks,
+          modalId: 'openTracksModal'
+        }
+        modalHelper.setModel(model);
+        $rootScope.openTracksModal = true;
       });
     } else if( item.type === 'album' ){
-      spotify.getAlbumTracksByID( item.id, (result) => {
-
+      spotify.getAlbumTracksByID( item.id, (tracks) => {
+        const model = {
+          header: {
+            pic: $scope.getPic(item),
+            name: item.name
+          }, 
+          tracks,
+          modalId: 'openTracksModal'
+        }
+        modalHelper.setModel(model);
+        $rootScope.openTracksModal = true;
       });
     }
   };
 
   // TO BE REMOVED FOR PRODUCTION
   const runTest = () => {
-    $scope.query = 'marshmello';
+    $scope.query = 'ed';
     $scope.search($scope.query);
   }
-  runTest();
+  // runTest();
 
 });

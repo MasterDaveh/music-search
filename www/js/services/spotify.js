@@ -7,6 +7,7 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
   let pageIdx = 0;
 
   const TOKEN_KEY = 'access_token';
+  const DEFAULT_COUNTRY = 'US';
 
   // organize the results in such a way that:
   // 1 - the first two spots of the search results are the 
@@ -67,7 +68,7 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
       } else {
         // retrieve ACCESS_TOKEN from url
         const pageURL = window.location.href;
-        const idx = pageURL.indexOf('TOKEN_KEY');
+        const idx = pageURL.indexOf('access_token');
         token = pageURL.slice( pageURL.indexOf('=', idx)+1, pageURL.indexOf('&', idx) );
         lstorage.set(TOKEN_KEY, token);
         window.location.href = pageURL.slice(0, pageURL.indexOf('#'));
@@ -128,7 +129,8 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
     
     ajax.call(url, {},
       (res) => {
-        tracks = results.data.items.sort(sortByPopularity);
+        let tracks = res.data.items;
+        tracks = tracks.sort(sortByPopularity);
         done(tracks);
       }, ( err ) => console.log(err.data),
       'get', headers
@@ -174,18 +176,14 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
   }
 
   const getTracksByArtistID = ( artistID, done ) => {
-    let url = `${ baseURL }/artists/${ artistID }/top-tracks`;
+    let url = `${ baseURL }/artists/${ artistID }/top-tracks?country=${ DEFAULT_COUNTRY }`;
     const token = lstorage.get(TOKEN_KEY);
     const headers = getCommonHeaders(token);
     ajax.call(url, {},
       (res) => {
-        let albums = res.data.items;
-        albums.forEach((item) => {
-          const date = item.release_date;
-          item.release_year = date.slice(0, date.indexOf('-'));
-        });
-        albums = albums.sort(sortByPopularity);
-        done(albums);
+        let tracks = res.data.tracks;
+        tracks = tracks.sort(sortByPopularity);
+        done(tracks);
       }, ( err ) => console.log(err.data),
       'get', headers
     );

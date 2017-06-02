@@ -53,8 +53,12 @@
       .extra--card
       .extra--card
   .results--more
-    .results--button( ng-click="more()" ) SHOW ME MORE!  
+    .results--button( 
+      ng-click="more()"
+      ng-if="results && results.length > 0"
+    ) SHOW ME MORE!  
   footer
     span Designed by Geek Label - Powered by Spotify
 
 include ../albums/albums.pug
+include ../tracks/tracks.pug

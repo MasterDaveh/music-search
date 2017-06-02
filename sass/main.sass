@@ -1,8 +1,10 @@
 @import "vars"
 @import "modernize"
+@import "modal"
 
 @import "../www/components/home/home"
 @import "../www/components/albums/albums"
+@import "../www/components/tracks/tracks"
 
 body
   background: $dgray
@@ -15,11 +17,20 @@ body
       opacity: 1
       pointer-events: all
     
-  &.all-albums__visible
-    .albums--card
-      transform: translate(-50%, -50%)
-      opacity: 1
-      pointer-events: all
+  &.albums__visible
+    .albums
+      .modal--card
+        transform: translate(-50%, -50%)
+        opacity: 1
+        pointer-events: all
+  
+  &.tracks__visible
+    .tracks
+      .modal--card
+        transform: translate(-50%, -50%)
+        opacity: 1
+        pointer-events: all
+
 
 html, body
   margin: 0
