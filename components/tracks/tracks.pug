@@ -1,4 +1,4 @@
-.albums( ng-controller="albumsCtrl" )
+.tracks( ng-controller="tracksCtrl" )
   .modal--card
     .modal--header(
       style="background-image: url( {{ model.header.pic }} )"
@@ -9,15 +9,10 @@
         img( src="./assets/Images/Cross@2x.png" )
       .modal--title {{ model.header.name }}
     .modal--mid
-      span Albums
+      span Tracks
       hr
     .modal--body
-      .modal--block( ng-repeat="album in model.albums" )
+      .modal--block( ng-repeat="track in model.tracks" )
         .block--section
-          .block--pic(
-            style="background-image: url({{ ::getPic(album) }}) "
-            ng-attr-style="background-image: url({{ ::getPic(album) }}) "
-          )
-        .block--section
-          .block--title {{ album.name }}
-          .block--year {{ album.release_year }}
+          .block--title {{ track.name }}
+          .block--duration {{ track.duration }}

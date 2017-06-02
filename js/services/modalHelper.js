@@ -10,7 +10,7 @@ angular.module('modalHelper', [])
 
   const setModel = (items) => {
     model = items;
-    publish('reset');
+    publish('reset', [model.modalId]);
   };
   const getModel = () => model;
   const on = (evName, fn) => {
@@ -20,10 +20,19 @@ angular.module('modalHelper', [])
     events[evName].push( fn );
   }
 
+  const getPic = (result) => {
+    let pic = '', idx = 0;
+    if( result.images.length > 1 ){
+      idx = result.images.length - 2;
+    }
+    pic = result.images[ idx ];
+    return pic.url;
+  }
+
   const publish = ( evName, args ) => {
-    events[evName].forEach((fn) => fn( args ));
+    events[evName].forEach((fn) => fn( ...args ));
   }
   
-  return { setModel, getModel, on, publish }
+  return { setModel, getModel, on, publish, getPic }
 
 });
