@@ -1,0 +1,104 @@
+.albums
+
+  &--card
+    width: 50%
+    background: white
+    position: fixed
+    top: 50%
+    left: 50%
+
+    box-shadow: 0 0 $baseline #{ $baseline / 8 } rgba(black, 0.5)
+
+    border-radius: #{ $baseline / 4 }
+    overflow: hidden
+    z-index: 1
+
+    pointer-events: none
+
+    transition: all 330ms $bezier
+    transform: translate(-50%, -60%)
+    opacity: 0
+  
+  &--header
+    height: #{ $baseline * 20 }
+    position: relative
+    opacity: 0.9
+
+    background:
+      repeat: no-repeat
+      size: cover
+      position: center center
+    
+    &-overlay
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      background: rgba(black, 0.45)
+      z-index: 0
+    
+  &--close
+    position: absolute
+    top: #{ $baseline * 2 }
+    right: #{ $baseline * 2 }
+    z-index: 1
+
+    text-shadow: black 0 0 10px
+    cursor: pointer
+
+    img
+      width: #{ $baseline * 2 }
+  
+  &--artist
+    +font((s: #{ $baseline * 3 }, c: white, w: 400))
+
+    position: absolute
+    bottom: $baseline
+    left: #{ $baseline * 2 }
+
+    text-shadow: black 0 0 10px
+  
+  &--body
+    padding: #{ $baseline * 2 }
+    padding-top: 0
+    max-height: 30vh
+    overflow-y: scroll
+
+      display: block
+      margin-bottom: #{ $baseline * 2 }
+  
+  &--mid
+    padding: #{ $baseline * 2 }
+  
+    span
+      +font((s: $baseline, c: $dgray, w: 700))
+      
+    hr
+      border: 0 solid transparent
+      border-top: 2px solid rgba(black, 0.03)
+      margin: 0
+      margin-top: #{ $baseline * 2 }
+      padding: 0
+
+  
+  &--block
+    display: flex
+
+.block
+  &--pic
+    +size(#{ $baseline * 6 })
+    margin:
+      right: #{ $baseline * 2 }
+      bottom: #{ $baseline * 2 }
+    background:
+      size: cover
+      position:
+    
+  &--title
+    +font((s: #{ $baseline * 1.5 }, c: $dgray, w: 600))
+    margin-bottom: #{ $baseline / 2 }
+  
+  &--year
+    +font(( s: $baseline, c: $lgray, w: 300 ))
+

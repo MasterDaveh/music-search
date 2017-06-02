@@ -10,7 +10,20 @@
 
   &:active
     opacity: 0.8
-  
+
+.modal--overlay
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  background: rgba(black, 0.5)
+  pointer-events: none
+
+  transition: opacity 330ms $bezier
+  opacity: 0
+  z-index: 1
+
 .main
   margin: 0 #{ $baseline * 3 }
   padding: 0
@@ -60,7 +73,7 @@
     width: 100%
     
     input
-      margin: #{ $baseline / 2 }
+      margin: #{ $baseline / 2 } $baseline
       display: inline-block
       background: transparent
       border: 0 solid transparent

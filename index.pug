@@ -9,7 +9,10 @@ html
 
     include includes/styles.pug
     
-  body(ng-app="base")
+  body(
+    ng-app="base"
+    ng-class="{'blocked-scroll': openAllAlbumsModal, 'all-albums__visible': openAllAlbumsModal}"
+  )
     include components/home/home.pug
 
     include includes/scripts.pug

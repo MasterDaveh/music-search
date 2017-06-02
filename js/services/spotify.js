@@ -1,12 +1,12 @@
 const spot = angular.module('spotifySrvc', ['utils']);
 
-spot.factory('spotify', function(ajax, arrays){
+spot.factory('spotify', function(ajax, arrays, lstorage){
   const baseURL = 'https://api.spotify.com/v1';
   const CLIENT_ID = '0bd2b7d36b5344faa55a8d4cf0ee104b';
   const REDIRECT_URI = encodeURIComponent( window.location.href );
-  let token = null;
   let lastQuery = '';
   let pageIdx = 0;
+  const TOKEN_KEY = 'access_token';
 
   // organize the results in such a way that:
   // 1 - the first two spots of the search results are the 
@@ -27,10 +27,10 @@ spot.factory('spotify', function(ajax, arrays){
     arrays.shuffle( res );
     
     placeholder = angular.copy(bestArtist);
-    placeholder.type = 'all_tracks';
+    placeholder.type = 'top_tracks';
     res.unshift(placeholder);
 
-    placeholder = angular.copy(bestAlbum);
+    placeholder = angular.copy(bestArtist);
     placeholder.type = 'all_albums';
     res.unshift(placeholder);
 
@@ -45,29 +45,40 @@ spot.factory('spotify', function(ajax, arrays){
     return res;
   }
 
-  const getCommonHeaders = () => {
+  const getCommonHeaders = (token) => {
     return {
       Authorization: `Bearer ${ token }`
     }
   }
 
+  const checkIfExpired = ( token, requestNew ) => {
+    // TODO: to implement
+    return;
+  }
+
   // authorization process for the spotify search api
   const authorize = () => {
-
-    // if the token param is present in the querystring it means
-    // the user was redirected to the page from the spotify api login
-    if( window.location.href.indexOf('access_token') === -1 ){
-      let url = 'https://accounts.spotify.com/authorize?';
-      url += `client_id=${ CLIENT_ID }`;
-      url += '&response_type=token';
-      url += `&redirect_uri=${ REDIRECT_URI }`;
-      url += '&state=118';
-      window.location.href = url;
+    let token = lstorage.get(TOKEN_KEY);
+    if( token ){
+      checkIfExpired( token, authorize );
     } else {
-      // recover the access token
-      const pageURL = window.location.href;
-      const idx = pageURL.indexOf('access_token');
-      token = pageURL.slice( pageURL.indexOf('=', idx)+1, pageURL.indexOf('&', idx) );
+      // if the token param is present in the querystring it means
+      // the user was redirected to the page from the spotify api login
+      if( window.location.href.indexOf(TOKEN_KEY) === -1 ){
+        let url = 'https://accounts.spotify.com/authorize?';
+        url += `client_id=${ CLIENT_ID }`;
+        url += '&response_type=token';
+        url += `&redirect_uri=${ REDIRECT_URI }`;
+        url += '&state=118';
+        window.location.href = url;
+      } else {
+        // recover the access token
+        const pageURL = window.location.href;
+        const idx = pageURL.indexOf('access_token');
+        token = pageURL.slice( pageURL.indexOf('=', idx)+1, pageURL.indexOf('&', idx) );
+        window.location.href = pageURL.slice(0, pageURL.indexOf('#'))
+        lstorage.set(TOKEN_KEY, token);
+      }
     }
   }
 
@@ -78,13 +89,19 @@ spot.factory('spotify', function(ajax, arrays){
     const searchArtist = angular.isDefined(options.artists)? options.artists: true;
     const searchTracks = angular.isDefined(options.tracks)? options.tracks: true;
     let searchTerms = [];
+    let offset = 0;
+    let url = '';
+    let token = '';
+    let headers = {};
 
     if( !searchAlbums && !searchArtist && !searchTracks ){
       throw "spotifySrvc: you have to search either for artist, tracks or albums";
     }
     
-    const offset = options.pageIdx? options.pageIdx * limit : 0;
-    let url = `${ baseURL }/search?q=${ query }&type=`;
+    offset = options.pageIdx? options.pageIdx * limit : 0;
+    url = `${ baseURL }/search?q=${ query }&type=`;
+    token = lstorage.get(TOKEN_KEY);
+    headers = getCommonHeaders(token);
     
     if( searchArtist ){ 
       searchTerms.push('artist');
@@ -107,26 +124,82 @@ spot.factory('spotify', function(ajax, arrays){
     ajax.call(url, {}, 
       (results) => cb(results.data),
       (result) => console.log(result), 
-      'get', getCommonHeaders()
+      'get', headers
     );
   };
 
-  const get = ( opts, done ) => {
-    const { queryArtists } = opts;
-    const query = queryArtists.map(x => x.name).join(' ');
+  const getAlbumTracksByID = ( albumID, done ) => {
+    let url = `${ baseURL }/albums/${ albumID }/tracks`;
+    const token = lstorage.get(TOKEN_KEY);
+    const headers = getCommonHeaders(token);
+    
+    ajax.call(url, {},
+      (res) => {
+        tracks = results.data.items.sort(sortByPopularity);
+        done(tracks);
+      }, ( err ) => console.log(err.data),
+      'get', headers
+    );
+  }
 
-    opts.artists = false;
-    opts.limit = 50;
+  const getAlbumsDetailsByID = (ids, done) => {
+    let url = `${ baseURL }/albums?ids=${ ids.join(',') }`;
+    const token = lstorage.get(TOKEN_KEY);
+    const headers = getCommonHeaders(token);
+    ajax.call(url, {},
+      (res) => {
+        const albums = res.data.albums.filter((album) => album.album_type === 'album')
+        done(albums)
+      }, (err) => console.log(err.data),
+      'get', headers
+    );
+  }
 
-    search(query, (res) => {
-      if( opts.albums ){
-        res = res.albums;
-        res = res.items.filter(x => x.album_type === 'album')
-      } else if( opts.tracks ){
-        res = res.tracks.items;
-      }
-      done(res);
-    }, opts);
+  const getAlbumsByArtistID = ( artistID, done ) => {
+    let url = `${ baseURL }/artists/${ artistID }/albums`;
+    const token = lstorage.get(TOKEN_KEY);
+    const headers = getCommonHeaders(token);
+    ajax.call(url, {},
+      (res) => {
+        let ids = [];
+        let items = res.data.items.sort(sortByPopularity);
+        for(let i=0; i<items.length; i++){
+          // the spotify albums endpoint allows a maximum of 20 ids
+          if( i > 20 ) break;
+          ids.push(items[i].id);
+        }
+        getAlbumsDetailsByID(ids, (albums) => {
+          albums.forEach((album) => {
+            const date = album.release_date;
+            album.release_year = date.slice(0, date.indexOf('-'));
+          });
+          done(albums);
+        });
+      }, ( err ) => console.log(err.data),
+      'get', headers
+    );
+  }
+
+  const getTracksByArtistID = ( artistID, done ) => {
+    let url = `${ baseURL }/artists/${ artistID }/top-tracks`;
+    const token = lstorage.get(TOKEN_KEY);
+    const headers = getCommonHeaders(token);
+    ajax.call(url, {},
+      (res) => {
+        let albums = res.data.items;
+        albums.forEach((item) => {
+          const date = item.release_date;
+          item.release_year = date.slice(0, date.indexOf('-'));
+        });
+        albums = albums.sort(sortByPopularity);
+        done(albums);
+      }, ( err ) => console.log(err.data),
+      'get', headers
+    );
+  }
+
+  const sortByPopularity = (curr, prev) => {
+    return prev.popularity - curr.popularity;
   }
 
   const searchMore = (query, done) => {
@@ -140,6 +213,10 @@ spot.factory('spotify', function(ajax, arrays){
 
   // TODO: when running in production the spotify service doesn't have to expose
   // concatenateResults, here only for testing purposes
-  return { search, concatenateResults, authorize, searchMore, normalize, get }
+  return { 
+    search, searchMore,
+    concatenateResults, 
+    authorize, normalize, 
+    getAlbumTracksByID, getAlbumsByArtistID, getTracksByArtistID, getAlbumsDetailsByID }
   
 });
