@@ -78,43 +78,6 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
 
       });
     }
-    
-    // let queryArtists = '';
-    // const isAllAlbums = item.type === 'all_albums';
-    // const isAllTracks = item.type === 'top_tracks';
-    // // console.log(item);
-    // if( isAllAlbums ){
-    //   queryArtists = item.artists.map(x => x.name).join(' ')
-    // } else if( isAllTracks ){
-    //   queryArtists = item.name;
-    // }
-    // var options = {
-    //   queryArtists: queryArtists || [{ name: item.name }],
-    //   albums: isAllAlbums,
-    //   tracks: isAllTracks
-    // };
-    // spotify.get(options, function (result) {
-    //   let itemIds = [];
-
-    //   // when requesting albums spotify allows a maximum of 20 ids
-    //   if( options.albums ){
-    //     result = result.slice(0, 20);
-    //   }
-      
-    //   // storing each album/track id to add more specific data such as the release date
-    //   result.forEach((item) => itemIds.push(item.id));
-    //   spotify.getById(options, itemIds, (res) => {
-    //     const model = {
-    //       header: {
-    //         pic: $scope.getPic(item),
-    //         name: queryArtists
-    //       },
-    //       albums: res
-    //     }
-    //     modalHelper.setModel( model );
-    //     $rootScope.openModal = true;
-    //   }, itemIds);
-    // });
   };
 
   // TO BE REMOVED FOR PRODUCTION
