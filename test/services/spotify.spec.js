@@ -1,4 +1,4 @@
-describe('testing the spotify service', function(){
+describe('testing the concatenateResults and normalize methods', () =>{
   let spotify;
 
   const searchTemplate = {
@@ -30,8 +30,7 @@ describe('testing the spotify service', function(){
     expect(normalized[0]).toEqual({ name: "Bad Meets Evil", type: "artist" });
     expect(normalized[1]).toEqual({ name: "Hell: The Sequel (Deluxe)", type: "album" });
     expect(normalized[2].type).toEqual('all_albums');
-    expect(normalized[3].type).toEqual('all_tracks');
+    expect(normalized[3].type).toEqual('top_tracks');
   });
-
 
 });

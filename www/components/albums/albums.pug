@@ -1,0 +1,23 @@
+.albums( ng-controller="albumsCtrl" )
+  .albums--card
+    .albums--header(
+      style="background-image: url( {{ model.header.pic }} )"
+      ng-attr-style="background-image: url( {{ model.header.pic }} )"
+    )
+      .albums--header-overlay
+      .albums--close( ng-click="close()" )
+        img( src="./assets/Images/Cross@2x.png" )
+      .albums--artist {{ model.header.name }}
+    .albums--mid
+      span Albums
+      hr
+    .albums--body
+      .albums--block( ng-repeat="album in model.albums" )
+        .block--section
+          .block--pic(
+            style="background-image: url({{ ::getPic(album) }}) "
+            ng-attr-style="background-image: url({{ ::getPic(album) }}) "
+          )
+        .block--section
+          .block--title {{ album.name }}
+          .block--year {{ album.release_year }}

@@ -2,10 +2,24 @@
 @import "modernize"
 
 @import "../www/components/home/home"
+@import "../www/components/albums/albums"
 
 body
   background: $dgray
   font-family: raleway, sans-serif
+
+  &.blocked-scroll
+    overflow: hidden
+
+    .modal--overlay
+      opacity: 1
+      pointer-events: all
+    
+  &.all-albums__visible
+    .albums--card
+      transform: translate(-50%, -50%)
+      opacity: 1
+      pointer-events: all
 
 html, body
   margin: 0

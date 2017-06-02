@@ -1,4 +1,5 @@
 .home( ng-controller="homeCtrl" )
+  .modal--overlay
   .main
     .main--header
       .header--block
@@ -12,6 +13,7 @@
       input( 
         placeholder="Search for artist or album title"
         ng-model="query"
+        maxlength="50"
       )
     button.search--button( ng-click="search(query)" ) SEARCH
   
@@ -21,7 +23,10 @@
       span Your results will appear here
 
     .results--matches( ng-if="results.length > 0" )
-      .result--card( ng-repeat="result in results" )
+      .result--card( 
+        ng-repeat="result in results"
+        ng-click="show(result)"
+      )
         .card--pic( 
             style="background-image: url( {{ ::getPic(result) }} )"
             ng-attr-style="background-image: url( {{ ::getPic(result) }} )"
@@ -39,7 +44,6 @@
           .card--overlay
         .card--viewall( 
           ng-if="::showBlurred(result)"
-          ng-click="showAll(result)"
         )
           img( src="assets/Images/Bitmap@2x.png" )
           span.viewall--text( ng-if="result.type === 'all_albums'" ) View Albums
@@ -52,3 +56,5 @@
     .results--button( ng-click="more()" ) SHOW ME MORE!  
   footer
     span Designed by Geek Label - Powered by Spotify
+
+include ../albums/albums.pug

@@ -19,7 +19,7 @@ utils.factory('arrays', function ($http) {
       arr[j] = tmp;
     }
 
-    // trying to lower probability of having elements in the same position
+    // attempting to lower probability of having elements in the same position
     // they had before the shuffling
     if( !exit ){ 
       shuffle(arr, true);
@@ -28,4 +28,38 @@ utils.factory('arrays', function ($http) {
   }
 
   return { shuffle }
+});
+
+utils.factory('lstorage', function () {
+  let get = key => {
+    let val = window.localStorage.getItem(key);
+    try {
+      val = JSON.parse( val );
+    } catch (ex) {
+      val = val.replace('/', '');
+    }
+
+    return val;
+  };
+  let set = (key, value) => {
+    let val = value;
+    if (angular.isObject(val)) {
+      val = JSON.stringify(value);
+    } else if( angular.isNumber(value) ){
+      // gli appendo una slash, che farà fallire la json.parse
+      // così se ho salvato un intero non viene convertito in stringa
+      val = `/${ val }`;
+    }
+    window.localStorage.setItem(key, val);
+  };
+  let remove = key => window.localStorage.removeItem(key);
+  let clear = () => window.localStorage.clear();
+
+  return {
+    get,
+    set,
+    remove,
+    clear
+  }
+
 });
