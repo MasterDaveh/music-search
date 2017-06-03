@@ -16,7 +16,11 @@
         maxlength="50"
       )
     button.search--button( ng-click="search(query)" ) SEARCH
-  
+  .home--spinner( ng-show="showUpperLoader" )
+    .spinner
+      .spinner--bar
+      .spinner--bar
+      .spinner--bar
   .results--wrapper
     .results--empty.mobilehidden( ng-if="!results || results.length === 0" )
       img#glass( src="assets/Images/Magnify@2x.png" )
@@ -26,6 +30,7 @@
       .result--card( 
         ng-repeat="result in results"
         ng-click="show(result)"
+        ng-class="{'result--card__nopointer': result.type === 'artist'}"
       )
         .card--pic( 
             style="background-image: url( {{ ::getPic(result) }} )"
@@ -56,6 +61,11 @@
       .extra--card.mobilehidden
       .extra--card.mobilehidden
       .extra--card.mobilehidden
+  .home--spinner( ng-show="showLowerLoader" )
+    .spinner
+      .spinner--bar
+      .spinner--bar
+      .spinner--bar
   .results--more( ng-if="results && results.length > 0" )
     .results--button( ng-click="more()" ) SHOW ME MORE!  
   footer

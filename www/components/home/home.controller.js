@@ -5,12 +5,17 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
   $scope.query = '';
   $scope.currentQuery = '';
   $scope.results = null;
-  $scope.firstSearch = false;
-  $scope.modalItems = [];
-  $scope.modelChanged = false;
+
+  $scope.showUpperLoader = false;
+  $scope.showLowerLoader = false;
 
   $rootScope.openAlbumsModal = false;
   $rootScope.openTracksModal = false;
+
+  const modals = {
+    albums: 'openAlbumsModal',
+    tracks: 'openTracksModal'
+  }
 
   const allowedTypes = ['all_albums', 'top_tracks', 'album'];
 
@@ -26,7 +31,7 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
       }, 
       tracks,
       type: item.type,
-      modalId: 'openTracksModal'
+      modalId: modals.tracks
     };
   }
 
@@ -37,15 +42,16 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
         name: item.name
       }, 
       albums,
-      modalId: 'openAlbumsModal'
+      modalId: modals.albums
     };
   }
 
   $scope.search = (query) => {
     $scope.currentQuery = query;
-    $scope.modelChanged = true;
+    $scope.showUpperLoader = true;
     spotify.search( $scope.currentQuery, (results) => {
       $scope.results = spotify.normalize(results);
+      $scope.showUpperLoader = false;
     });
   };
 
@@ -65,9 +71,11 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
     return pic.url;
   }
 
-  $scope.more = () => { 
+  $scope.more = () => {
+    $scope.showLowerLoader = true;
     spotify.searchMore($scope.currentQuery, (results) => {
       $scope.results.push( ...results );
+      $scope.showLowerLoader = false;
     });
   }
 
@@ -79,22 +87,31 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
     if( allowedTypes.indexOf(item.type) === -1 ) return;
 
     if( item.type === 'all_albums' ){
+      modalHelper.clearModel(modals.albums);
+      $rootScope.openAlbumsModal = true;
+      modalHelper.publish('showLoader', [modals.albums]);
       spotify.getAlbumsByArtistID( item.id, (albums) => {
         const model = getAlbumsModel(item, albums);
         modalHelper.setModel(model);
-        $rootScope.openAlbumsModal = true;
+        modalHelper.publish('hideLoader', [modals.albums]);
       });
     } else if( item.type === 'top_tracks' ){
+      modalHelper.clearModel(modals.tracks);
+      $rootScope.openTracksModal = true;
+      modalHelper.publish('showLoader', [modals.tracks]);
       spotify.getTracksByArtistID( item.id, (tracks) => {
         const model = getTracksModel(item, tracks);
         modalHelper.setModel(model);
-        $rootScope.openTracksModal = true;
+        modalHelper.publish('hideLoader', [modals.tracks]);
       });
     } else if( item.type === 'album' ){
+      modalHelper.clearModel(modals.tracks);
+      $rootScope.openTracksModal = true;
+      modalHelper.publish('showLoader', [modals.tracks]);
       spotify.getAlbumTracksByID( item.id, (tracks) => {
         const model = getTracksModel(item, tracks);
         modalHelper.setModel(model);
-        $rootScope.openTracksModal = true;
+        modalHelper.publish('hideLoader', [modals.tracks]);
       });
     }
   };

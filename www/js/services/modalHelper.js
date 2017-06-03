@@ -5,7 +5,10 @@ angular.module('modalHelper', [])
   let model = {};
   const events = {
     reset: [],
-    close: []
+    close: [],
+    showLoader: [],
+    hideLoader: [],
+    clearModel: []
   };
 
   const setModel = (items) => {
@@ -13,6 +16,10 @@ angular.module('modalHelper', [])
     publish('reset', [model.modalId]);
   };
   const getModel = () => model;
+  const clearModel = (modalId) => {
+    model = {};
+    publish('clearModel', [modalId]);
+  };
   const on = (evName, fn) => {
     if( !events[evName] ){
       throw `modalHelper: cannot subscribe to unknown '${ evName }' event`;
@@ -30,9 +37,12 @@ angular.module('modalHelper', [])
   }
 
   const publish = ( evName, args ) => {
+    if( !events[evName] ){
+      throw `modalHelper: cannot publish unknown ${ evName } event`;
+    }
     events[evName].forEach((fn) => fn( ...args ));
   }
   
-  return { setModel, getModel, on, publish, getPic }
+  return { setModel, getModel, on, publish, getPic, clearModel }
 
 });
