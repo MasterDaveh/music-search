@@ -144,6 +144,7 @@
   cursor: pointer
   position: relative
   overflow: hidden
+  border-radius: #{ $baseline / 4 }
 
   .card--viewall
     position: absolute
@@ -171,7 +172,6 @@
       size: cover
       position: center center
       repeat: no-repeat
-    border-radius: 4px 4px 0 0
     position: relative
     overflow: hidden
 
@@ -196,7 +196,6 @@
     height: #{ $baseline * 3 }
     padding: $baseline
     background: white
-    border-radius: 0 0 4px 4px
     +font(( c: $dgray, w: 600 ))
 
 // used to fill empty space on last row to force all the cards
