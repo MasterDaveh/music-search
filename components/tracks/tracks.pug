@@ -17,6 +17,11 @@
       span Tracks
       hr
     .modal--body
+      .modal--spinner( ng-if="showLoader" )
+        .spinner
+          .spinner--bar
+          .spinner--bar
+          .spinner--bar
       .modal--block( ng-repeat="track in model.tracks" )
         .block--section
           .block--title {{ track.name }}

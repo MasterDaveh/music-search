@@ -2,7 +2,6 @@
   background: $lpink
   padding: #{ $baseline / 2 } #{ $baseline * 2 }
   border-radius: #{ $baseline * 2 }
-  // margin: #{ $baseline / 4 }
   +font(( s: $baseline, w: 500, c: white ))
   cursor: pointer
   outline: none
@@ -13,6 +12,21 @@
 
 .home
   max-width: 1500px
+
+  &--spinner
+    width: 100vw
+    display: flex
+    justify-content: center
+    margin-bottom: $baseline
+
+    .spinner
+      height: #{ $baseline * 7 }
+      width: #{ $baseline * 5 }
+
+      &--bar
+        background: $lpink
+        width: #{ $baseline }
+  
 
 .modal--overlay
   position: fixed
@@ -131,20 +145,22 @@
     width: 100%
     display: flex
     justify-content: center
-    margin: $baseline auto
+    margin: #{ $baseline * 2 } auto
 
   &--button
     +pink-button
 
-
 .result--card
   width: #{ $baseline * 17 }
-  margin: #{ $baseline * 4 } $baseline 0
+  margin: #{ $baseline * 2 } $baseline 0
   box-shadow: 0px 0px 20px 2px rgba(black, 0.2)
   cursor: pointer
   position: relative
   overflow: hidden
   border-radius: #{ $baseline / 4 }
+
+  &__nopointer
+    cursor: default
 
   .card--viewall
     position: absolute
@@ -205,11 +221,11 @@
   height: 0
   width: #{ $baseline * 17 }
   margin-right: #{ $baseline * 2 }
-  margin-top: #{ $baseline * 4 }
+  // margin-top: #{ $baseline * 4 }
 
 
 footer
-  margin: #{ $baseline * 2 }
+  margin: #{ $baseline * 4 } 0 #{ $baseline * 2 }
   text-align: center
 
   span

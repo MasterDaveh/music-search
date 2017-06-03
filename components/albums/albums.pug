@@ -17,6 +17,11 @@
       span Albums
       hr
     .modal--body
+      .modal--spinner( ng-if="showLoader" )
+        .spinner
+          .spinner--bar
+          .spinner--bar
+          .spinner--bar
       .modal--block( ng-repeat="album in model.albums" )
         .block--section.mobilehidden
           .block--pic(
