@@ -2,7 +2,7 @@
   background: $lpink
   padding: #{ $baseline / 2 } #{ $baseline * 2 }
   border-radius: #{ $baseline * 2 }
-  margin: #{ $baseline / 4 }
+  // margin: #{ $baseline / 4 }
   +font(( s: $baseline, w: 500, c: white ))
   cursor: pointer
   outline: none
@@ -42,29 +42,31 @@
       img#gklabel
         width: #{ $baseline * 6 }
 
-  .main
-    &--header
-      display: flex
-      justify-content: space-between
+  &--header
+    display: flex
+    justify-content: space-between
+    height: 30%
+  
+  &--hero
+    text-align: center
+    padding-bottom: #{ $baseline * 2 }
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    height: 70%
+    box-sizing: border-box
     
-    &--hero
-      text-align: center
-      padding-bottom: #{ $baseline * 2 }
-      margin-top: - #{ $baseline * 4 }
+    img#headset
+      width: 50%
+      margin: - #{ $baseline * 4 } auto 0
+    
+    img#arrow
+      width: #{ $baseline * 3 }
+      display: block
+      margin: 0 auto
       
-      img#headset
-        width: 50%
-      
-      img#arrow
-        width: #{ $baseline * 3 }
-      
-      img#arrow, img#headset
-        display: block
-        margin: 0 auto
 
 .search
-  background: white
-  border-radius: #{ $baseline * 4 }
   margin: $baseline auto
 
   width: 70%
@@ -72,8 +74,12 @@
   align-items: center
   justify-content: space-between
 
+  position: relative
+
   &--box
     width: 100%
+    background: white
+    border-radius: #{ $baseline * 4 }
     
     input
       margin: #{ $baseline / 2 } $baseline
@@ -82,10 +88,14 @@
       border: 0 solid transparent
       outline: none
       width: 100%
-      +font(( s: $baseline, c: $lgray, w: 400, lh: $base-lheight))
+      +font(( s: $baseline, c: $lgray, w: 500, lh: $base-lheight))
+      height: #{ $baseline * 1.5 }
   
   &--button
     +pink-button
+    position: absolute
+    top: #{ $baseline / 4 }
+    right: #{ $baseline / 4 }
 
 .results
 
@@ -129,7 +139,7 @@
 
 .result--card
   width: #{ $baseline * 17 }
-  margin-top: #{ $baseline * 4 }
+  margin: #{ $baseline * 4 } $baseline 0
   box-shadow: 0px 0px 20px 2px rgba(black, 0.2)
   cursor: pointer
   position: relative
@@ -200,7 +210,7 @@
 
 
 footer
-  padding: #{ $baseline * 2 }
+  margin: #{ $baseline * 2 }
   text-align: center
 
   span
