@@ -93,7 +93,7 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
     }
     
     offset = options.pageIdx? options.pageIdx * limit : 0;
-    url = `${ baseURL }/search?q=${ query }&type=`;
+    url = `${ baseURL }/search?q=${ query }&market=${ DEFAULT_COUNTRY }&type=`;
     token = lstorage.get(TOKEN_KEY);
     headers = getCommonHeaders(token);
     
@@ -123,7 +123,7 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
   };
 
   const getAlbumTracksByID = ( albumID, done ) => {
-    let url = `${ baseURL }/albums/${ albumID }/tracks`;
+    let url = `${ baseURL }/albums/${ albumID }/tracks?market=${ DEFAULT_COUNTRY }`;
     const token = lstorage.get(TOKEN_KEY);
     const headers = getCommonHeaders(token);
     
@@ -139,34 +139,44 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
 
   const getAlbumsDetailsByID = (ids, done) => {
     let url = `${ baseURL }/albums?ids=${ ids.join(',') }`;
+        url += `&market=${ DEFAULT_COUNTRY }`;
+        url += '&album_type=album'
     const token = lstorage.get(TOKEN_KEY);
     const headers = getCommonHeaders(token);
     ajax.call(url, {},
       (res) => {
-        const albums = res.data.albums.filter((album) => album.album_type === 'album')
+        const albums = res.data.albums;
         done(albums)
       }, (err) => console.log(err.data),
       'get', headers
     );
   }
 
+  const getReleaseYear = (album) => {
+    let year = album.release_date;
+    if( album.release_date_precision != 'year' ){
+      year = year.slice(0, year.indexOf('-'));
+    }
+    return year;
+  }
+
   const getAlbumsByArtistID = ( artistID, done ) => {
-    let url = `${ baseURL }/artists/${ artistID }/albums`;
+    let url = `${ baseURL }/artists/${ artistID }/albums?market=${ DEFAULT_COUNTRY }`;
     const token = lstorage.get(TOKEN_KEY);
     const headers = getCommonHeaders(token);
+    // The spotify albums endpoint allows a maximum of 20 ids
+    const IDCOUNT = 20;
     ajax.call(url, {},
       (res) => {
         let ids = [];
         let items = res.data.items.sort(sortByPopularity);
         for(let i=0; i<items.length; i++){
-          // the spotify albums endpoint allows a maximum of 20 ids
-          if( i > 20 ) break;
+          if( i > IDCOUNT ) break;
           ids.push(items[i].id);
         }
         getAlbumsDetailsByID(ids, (albums) => {
           albums.forEach((album) => {
-            const date = album.release_date;
-            album.release_year = date.slice(0, date.indexOf('-'));
+            album.release_year = getReleaseYear(album);
           });
           done(albums);
         });
