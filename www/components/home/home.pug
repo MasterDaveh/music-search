@@ -18,7 +18,7 @@
     button.search--button( ng-click="search(query)" ) SEARCH
   
   .results--wrapper
-    .results--empty( ng-if="!results || results.length === 0" )
+    .results--empty.mobilehidden( ng-if="!results || results.length === 0" )
       img#glass( src="assets/Images/Magnify@2x.png" )
       span Your results will appear here
 
@@ -52,13 +52,12 @@
       .extra--card
       .extra--card
       .extra--card
-  .results--more
-    .results--button( 
-      ng-click="more()"
-      ng-if="results && results.length > 0"
-    ) SHOW ME MORE!  
+  .results--more( ng-if="results && results.length > 0" )
+    .results--button( ng-click="more()" ) SHOW ME MORE!  
   footer
-    span Designed by Geek Label - Powered by Spotify
+    span Designed by Geek Label
+    span.mobilehidden  - 
+    span Powered by Spotify
 
 include ../albums/albums.pug
 include ../tracks/tracks.pug

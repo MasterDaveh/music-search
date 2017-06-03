@@ -29,7 +29,7 @@ const karmaCfg = {
 
 const APPNAME = 'musicsearch';
 const paths = {
-  sass: [ './sass/main.sass', './sass/*.sass', './www/components/**/*.sass' ],
+  sass: [ './sass/main.sass', './sass/**/*.sass', './www/components/**/*.sass' ],
   pug: [ './www/index.pug', './www/components/**/*.pug', './www/includes/*.pug' ],
   html: [ './www/index.html', './www/components/**/*.html' ],
   scripts: [ './www/js/**/*.js', '!./www/js/external/*', './www/components/**/*.js' ],

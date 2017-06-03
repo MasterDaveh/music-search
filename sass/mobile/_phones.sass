@@ -1,0 +1,36 @@
+@media screen and (max-width: $phones-from)
+  .main
+    height: 100vh
+    margin: 0
+
+    &--hero
+      img#headset
+        width: 85%
+        margin-top: 0
+
+    &--header
+      .header--block
+        margin: #{ $baseline * 2 }
+        padding: 0
+        font-size: #{ $baseline * 0.75 }
+
+        img#gklabel
+          width: #{ $baseline * 3 }
+  
+  .search
+    flex-direction: column
+    width: 90%
+
+    &--box
+      margin-bottom: $baseline
+
+    &--button
+      position: relative
+      top: 0
+
+  footer
+    margin: $baseline 0
+
+    span:first-child
+      display: block
+      margin-bottom: #{ $baseline / 4 }

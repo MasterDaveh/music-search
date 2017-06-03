@@ -6,6 +6,8 @@
 @import "../www/components/albums/albums"
 @import "../www/components/tracks/tracks"
 
+@import "mobile/mobile"
+
 body
   background: $dgray
   font-family: raleway, sans-serif
@@ -34,7 +36,10 @@ body
         opacity: 1
         pointer-events: all
 
-
 html, body
   margin: 0
   padding: 0
+
+@media screen and (max-width: $phones-from)
+  .mobilehidden
+    display: none
