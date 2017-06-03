@@ -18,6 +18,28 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
     $rootScope[modalId] = false;
   });
 
+  const getTracksModel = (item, tracks) => {
+    return {
+      header: {
+        pic: $scope.getPic(item),
+        name: item.name
+      }, 
+      tracks,
+      modalId: 'openTracksModal'
+    };
+  }
+
+  const getAlbumsModel = (item, albums) => {
+    return {
+      header: {
+        pic: $scope.getPic(item),
+        name: item.name
+      }, 
+      albums,
+      modalId: 'openAlbumsModal'
+    };
+  }
+
   $scope.search = (query) => {
     $scope.currentQuery = query;
     $scope.modelChanged = true;
@@ -57,40 +79,19 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
 
     if( item.type === 'all_albums' ){
       spotify.getAlbumsByArtistID( item.id, (albums) => {
-        const model = {
-          header: {
-            pic: $scope.getPic(item),
-            name: item.name
-          }, 
-          albums,
-          modalId: 'openAlbumsModal'
-        }
+        const model = getAlbumsModel(item, albums);
         modalHelper.setModel(model);
         $rootScope.openAlbumsModal = true;
       });
     } else if( item.type === 'top_tracks' ){
       spotify.getTracksByArtistID( item.id, (tracks) => {
-        const model = {
-          header: {
-            pic: $scope.getPic(item),
-            name: item.name
-          }, 
-          tracks,
-          modalId: 'openTracksModal'
-        }
+        const model = getTracksModel(item, tracks);
         modalHelper.setModel(model);
         $rootScope.openTracksModal = true;
       });
     } else if( item.type === 'album' ){
       spotify.getAlbumTracksByID( item.id, (tracks) => {
-        const model = {
-          header: {
-            pic: $scope.getPic(item),
-            name: item.name
-          }, 
-          tracks,
-          modalId: 'openTracksModal'
-        }
+        const model = getTracksModel(item, tracks);
         modalHelper.setModel(model);
         $rootScope.openTracksModal = true;
       });
@@ -99,7 +100,7 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
 
   // TO BE REMOVED FOR PRODUCTION
   const runTest = () => {
-    $scope.query = 'ed';
+    $scope.query = 'cage the';
     $scope.search($scope.query);
   }
   // runTest();

@@ -1,4 +1,4 @@
-const base = angular.module('base', ['home', 'albums', 'spotifySrvc']);
+const base = angular.module('base', ['home', 'albums', 'tracks', 'spotifySrvc']);
 
 base.config(function( $locationProvider ){
   $locationProvider.html5Mode(true);
