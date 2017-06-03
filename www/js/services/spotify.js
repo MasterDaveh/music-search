@@ -27,15 +27,25 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
 
     arrays.shuffle( res );
     
-    placeholder = angular.copy(bestArtist);
-    placeholder.type = 'top_tracks';
-    res.unshift(placeholder);
+    if( bestArtist ){
+      placeholder = angular.copy(bestArtist);
+      placeholder.type = 'top_tracks';
+      res.unshift(placeholder);
+    }
 
-    placeholder = angular.copy(bestArtist);
-    placeholder.type = 'all_albums';
-    res.unshift(placeholder);
+    if( bestAlbum ){
+      placeholder = angular.copy(bestArtist);
+      placeholder.type = 'all_albums';
+      res.unshift(placeholder);
+    }
 
-    res.unshift(...[bestArtist, bestAlbum]);
+    if( bestAlbum ){
+      res.unshift(bestAlbum);
+    }
+    
+    if(bestArtist){
+      res.unshift(bestArtist);
+    }
 
     return res;
   }
