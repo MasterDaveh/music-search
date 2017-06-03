@@ -1,4 +1,8 @@
 @media screen and (max-width: $phones-from)
+
+  .mobileshown
+    display: block
+
   .main
     height: 100vh
     margin: 0
@@ -20,6 +24,7 @@
   .search
     flex-direction: column
     width: 90%
+    margin-top: #{ $baseline * 3 }
 
     &--box
       margin-bottom: $baseline
@@ -29,8 +34,109 @@
       top: 0
 
   footer
-    margin: $baseline 0
+    margin: #{ $baseline * 3} 0 $baseline 
 
     span:first-child
       display: block
       margin-bottom: #{ $baseline / 4 }
+  
+  .results
+
+    &--matches
+      margin: 0
+
+      .result
+        &--card
+          width: 90%
+          display: flex
+          margin: $baseline 0 0
+
+          &:first-child
+            margin-top: #{ $baseline * 2 }
+
+          .card
+            &--pic
+              width: #{ $baseline * 8 }
+              height: 100%
+
+              &__blurred
+                filter: blur(2px)
+
+            &--title
+              width: 100%
+            
+            &--badge
+              bottom: #{ $baseline / 2 }
+              left: #{ $baseline / 2 }
+
+              img
+                height: $baseline
+            
+            &--viewall
+              bottom: 0
+              left: 0
+              width: 30%
+              align-items: flex-start
+              justify-content: flex-start
+
+              img
+                height: 70%
+                width: 23%
+
+              .viewall--text
+                margin-top: 0
+                padding: 
+                  top: $baseline
+                  left: #{ $baseline / 2 }
+  
+  .modal
+    &--header
+      height: #{ $baseline * 5 }
+      padding: $baseline
+
+      display: flex
+
+      .header--background
+        width: #{ $baseline * 5 }
+      
+      &-overlay
+        position: absolute
+        top: $baseline
+        left: $baseline
+        bottom: $baseline
+        width: #{ $baseline * 5 }
+    
+    &--subtitle
+      margin-left: $baseline
+      +font((s: $baseline, w: 300))
+    
+    &--title
+      position: static
+      text-shadow: none
+      +font((s: #{ $baseline * 1.25 }, w: 600, c: $dgray))
+      margin-left: $baseline
+
+    &--card
+      width: 100vw
+      height: 70vh
+    
+    &--body
+      padding-top: #{ $baseline * 2 }
+      max-height: 45vh
+      padding: $baseline
+
+    &--close
+      top: $baseline
+      right: $baseline
+
+      img
+        width: $baseline
+    
+    &--block
+      .block
+        &--title
+          font-size: #{ $baseline * 1.25 }
+          margin-bottom: 0
+
+        &--section
+          margin-bottom: $baseline

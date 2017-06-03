@@ -22,12 +22,14 @@
   &--header
     height: #{ $baseline * 20 }
     position: relative
-    opacity: 0.9
 
-    background:
-      repeat: no-repeat
-      size: cover
-      position: center center
+    .header--background
+      +size(100%)
+      opacity: 0.9
+      background:
+        repeat: no-repeat
+        size: cover
+        position: center center
 
     &-overlay
       position: absolute
@@ -78,7 +80,6 @@
       border: 0 solid transparent
       border-top: 2px solid rgba(black, 0.04)
       margin: 0
-      margin-top: #{ $baseline * 2 }
       padding: 0
   
   &--block

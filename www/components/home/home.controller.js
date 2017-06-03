@@ -25,6 +25,7 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
         name: item.name
       }, 
       tracks,
+      type: item.type,
       modalId: 'openTracksModal'
     };
   }

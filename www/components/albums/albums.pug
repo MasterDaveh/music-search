@@ -1,19 +1,24 @@
 .albums( ng-controller="albumsCtrl" )
   .modal--card
-    .modal--header(
-      style="background-image: url( {{ model.header.pic }} )"
-      ng-attr-style="background-image: url( {{ model.header.pic }} )"
-    )
+    .modal--header
+      .header--background(
+        style="background-image: url( {{ model.header.pic }} )"
+        ng-attr-style="background-image: url( {{ model.header.pic }} )"
+      )
       .modal--header-overlay
-      .modal--close( ng-click="close()" )
+      .modal--close.mobilehidden( ng-click="close()" )
         img( src="./assets/Images/Cross@2x.png" )
-      .modal--title {{ model.header.name }}
-    .modal--mid
+      .modal--close.mobileshown( ng-click="close()" )
+        img( src="./assets/Images/Cross Dark@2x.png" )
+      .header--title
+        .modal--subtitle.mobileshown Albums by
+        .modal--title {{ model.header.name }}
+    .modal--mid.mobilehidden
       span Albums
       hr
     .modal--body
       .modal--block( ng-repeat="album in model.albums" )
-        .block--section
+        .block--section.mobilehidden
           .block--pic(
             style="background-image: url({{ ::getPic(album) }}) "
             ng-attr-style="background-image: url({{ ::getPic(album) }}) "
