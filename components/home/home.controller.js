@@ -116,11 +116,4 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
     }
   };
 
-  // TO BE REMOVED FOR PRODUCTION
-  const runTest = () => {
-    $scope.query = 'cage the';
-    $scope.search($scope.query);
-  }
-  // runTest();
-
 });
