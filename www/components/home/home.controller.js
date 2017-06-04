@@ -47,6 +47,7 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
   }
 
   $scope.search = (query) => {
+    if( query.trim().length === 0 ) return;
     $scope.currentQuery = query;
     $scope.showUpperLoader = true;
     spotify.search( $scope.currentQuery, (results) => {

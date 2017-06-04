@@ -19,6 +19,7 @@
     &--hero
       img#headset
         width: 85%
+        height: 60%
         margin-top: 0
 
     &--header
@@ -56,7 +57,7 @@
 
       .result
         &--card
-          width: 90%
+          max-width: 90%
           display: flex
           margin: $baseline 0 0
 
@@ -65,14 +66,19 @@
 
           .card
             &--pic
-              width: #{ $baseline * 8 }
-              height: 100%
+              width: #{ $baseline * 8 } 
+              height: #{ $baseline * 5 }
 
               &__blurred
                 filter: blur(2px)
 
             &--title
               width: 100%
+
+              white-space: nowrap
+              overflow: hidden
+              text-overflow: ellipsis
+              word-break: break-word
             
             &--badge
               bottom: #{ $baseline / 2 }
@@ -107,6 +113,10 @@
 
       display: flex
 
+      .header--title
+        width: 70%
+        overflow: scroll
+
       .header--background
         width: #{ $baseline * 5 }
       
@@ -116,6 +126,7 @@
         left: $baseline
         bottom: $baseline
         width: #{ $baseline * 5 }
+        background: rgba(black, 0.1)
     
     &--subtitle
       margin-left: $baseline
