@@ -222,12 +222,10 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
     search(query, onSearchDone, options);
   }
 
-  // TODO: when running in production the spotify service doesn't have to expose
-  // concatenateResults, here only for testing purposes
   return { 
     search, searchMore,
-    concatenateResults, 
-    authorize, normalize, 
+    concatenateResults, normalize,
+    authorize, 
     getAlbumTracksByID, getAlbumsByArtistID, getTracksByArtistID, getAlbumsDetailsByID }
   
 });
