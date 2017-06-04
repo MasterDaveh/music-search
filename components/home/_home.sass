@@ -12,6 +12,7 @@
 
 .home
   max-width: 1500px
+  margin: 0 auto
 
   &--spinner
     width: 100%
@@ -72,6 +73,7 @@
     
     img#headset
       width: 50%
+      height: 30%
       margin: - #{ $baseline * 4 } auto 0
     
     img#arrow
@@ -88,6 +90,9 @@
   align-items: center
   justify-content: space-between
 
+  height: auto
+  box-sizing: border-box
+
   position: relative
 
   &--box
@@ -101,7 +106,7 @@
       background: transparent
       border: 0 solid transparent
       outline: none
-      width: 100%
+      width: 80%
       +font(( s: $baseline, c: $lgray, w: 500, lh: $base-lheight))
       height: #{ $baseline * 1.5 }
   
@@ -110,6 +115,7 @@
     position: absolute
     top: #{ $baseline / 4 }
     right: #{ $baseline / 4 }
+    bottom: #{ $baseline / 4 }
 
 .results
 
@@ -145,7 +151,7 @@
     width: 100%
     display: flex
     justify-content: center
-    margin: #{ $baseline * 2 } auto
+    margin-top: #{ $baseline * 2 }
 
   &--button
     +pink-button
