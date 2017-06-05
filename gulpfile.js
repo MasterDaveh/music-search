@@ -9,9 +9,9 @@ const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const uglifyCSS = require('gulp-uglifycss');
 const rename = require('gulp-rename');
-const uncss = require('gulp-uncss');
 const Karma = require('karma').Server;
 const autoprefixer = require('gulp-autoprefixer');
+const annotate = require('gulp-ng-annotate');
 
 'use strict';
 
@@ -115,17 +115,17 @@ gulp.task('babel', function() {
 });
 
 gulp.task('scripts-prod', ['babel'], function(){
-  gulp.src(`${ paths.dev.scripts }**/*.js`)
+  gulp.src(`${ paths.dev.scripts }*.js`)
     .pipe(plumber({ errorHandler }))
     .pipe(babel())
     .pipe(concat(`${APPNAME}.bundle.js`))
+    .pipe(annotate())
     .pipe(uglify())
     .pipe(gulp.dest(paths.prod.scripts));
 });
 
 gulp.task('styles-prod', ['sass'], function(){
-  gulp.src(`./www/main.css`)
-    .pipe(uncss({ html: paths.html }))
+  gulp.src(`${ paths.dev.styles }main.css`)
     .pipe(plumber({ errorHandler }))
     .pipe(rename(`${APPNAME}.min.css`))
     .pipe(uglifyCSS())
