@@ -78,9 +78,18 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
       } else {
         // retrieve ACCESS_TOKEN from url
         const pageURL = window.location.href;
-        const idx = pageURL.indexOf('access_token');
+        let idx = pageURL.indexOf('access_token');
+        let expiration_offset = 0;
+
         token = pageURL.slice( pageURL.indexOf('=', idx)+1, pageURL.indexOf('&', idx) );
         lstorage.set(TOKEN_KEY, token);
+
+        idx = pageURL.indexOf('expires_in');
+        expiration_offset = pageURL.slice( pageURL.indexOf('=', idx)+1, pageURL.indexOf('&', idx) );
+        // removing the access_token will force the authorization process to begin 
+        // when the token will expire
+        $timeout(() => lstorage.remove(TOKEN_KEY), (expiration_offset * 1000));
+        
         window.location.href = pageURL.slice(0, pageURL.indexOf('#'));
       }
     }
@@ -106,6 +115,10 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
     url = `${ baseURL }/search?q=${ query }&market=${ DEFAULT_COUNTRY }&type=`;
     token = lstorage.get(TOKEN_KEY);
     headers = getCommonHeaders(token);
+
+    if( !token ){ 
+      authorize();
+    }
     
     if( searchArtist ){ 
       searchTerms.push('artist');
