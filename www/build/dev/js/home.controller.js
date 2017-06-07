@@ -2,9 +2,9 @@
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var home = angular.module('home', ['spotifySrvc', 'modalHelper']);
+var home = angular.module('home', ['spotifySrvc', 'modalHelper', 'smoothScroll']);
 
-home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper) {
+home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper, smoothScroll) {
 
   $scope.query = '';
   $scope.currentQuery = '';
@@ -121,5 +121,14 @@ home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper) 
         modalHelper.publish('hideLoader', [modals.tracks]);
       });
     }
+  };
+
+  $scope.scrollDown = function () {
+    var target = document.getElementById('scroll-target');
+    var options = {
+      duration: 330,
+      easing: 'easeInCubic'
+    };
+    smoothScroll(target, options);
   };
 });

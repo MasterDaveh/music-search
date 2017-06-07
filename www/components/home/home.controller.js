@@ -1,6 +1,6 @@
-const home = angular.module('home', ['spotifySrvc', 'modalHelper']);
+const home = angular.module('home', ['spotifySrvc', 'modalHelper', 'smoothScroll']);
 
-home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper ){
+home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper, smoothScroll ){
 
   $scope.query = '';
   $scope.currentQuery = '';
@@ -116,5 +116,14 @@ home.controller('homeCtrl', function( $scope, $rootScope, spotify, modalHelper )
       });
     }
   };
+
+  $scope.scrollDown = () => {
+    const target = document.getElementById('scroll-target');
+    const options = {
+      duration: 330,
+      easing: 'easeInCubic'
+    };
+    smoothScroll(target, options);
+  }
 
 });

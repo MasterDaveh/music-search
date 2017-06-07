@@ -1,4 +1,5 @@
 www/assets/fonts/
 node_modules/
+bower_components/
 *.log
 .vscode/

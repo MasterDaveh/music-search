@@ -45,7 +45,7 @@ The service is linked to the other controllers using a PubSub pattern, so contro
 During the development the spotify APIs suddenly required to have an authorization key to access them, so I included an `authorize` method in the spotify service, to handle it. All that is masked by a login process, which is only required to retrieve an access token in order to call the Spotify endpoints.
 
 ### Testing and serving
-If you'd like to test the project locally just clone the repo, `npm install` the packages and run `gulp`. This will transpile the js, compile the SASS and spin up a local server at `http://localhost:3000`, serving the website in DEV mode.<br>
+If you'd like to test the project locally just clone the repo, run `npm install` and `bower install` to install the dependencies and run `gulp`. This will transpile the js, compile the SASS and spin up a local server at `http://localhost:3000`, serving the website in DEV mode.<br>
 If you want to test the project with a production setup just set the `env` var to 'PROD' in the index.pug file, then run `gulp build` and finally `gulp`. 
 This will tell pug to look for the styles and scripts in the production folder, then transpile, minify and concatenate the js, compile the SASS and move all those files in the production folder.<br>
 Finally, if you'd like to run the tests included run `gulp test`;

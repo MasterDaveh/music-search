@@ -7,7 +7,10 @@
       .header--block Powered by Spotify
     .main--hero
       img#headset( src="assets/Images/hero-img@2x.png" )
-      img#arrow( src="assets/Images/Page 1@2x.png" )
+      img#arrow( 
+        ng-click="scrollDown()"
+        src="assets/Images/Page 1@2x.png"
+      )
   form.search
     .search--box
       input( 
@@ -16,6 +19,7 @@
         maxlength="50"
       )
     button.search--button( ng-click="search(query)" ) SEARCH
+  #scroll-target
   .home--spinner( ng-show="showUpperLoader" )
     .spinner
       .spinner--bar
