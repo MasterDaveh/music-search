@@ -414,7 +414,7 @@ html.cssfilters .card--pic__blurred {
     font-weight: 600;
     color: #333441; }
 
-.extra--card {
+.extra-card {
   height: 0;
   width: 272px;
   margin-right: 32px; }
@@ -455,6 +455,96 @@ footer {
   font-size: 16px;
   font-weight: 300;
   color: #454756; }
+
+.artist .modal--block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.preview {
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 16px;
+  margin-bottom: 16px; }
+  .preview--clip {
+    height: 160px;
+    width: 160px;
+    position: relative;
+    cursor: pointer;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center; }
+    .preview--clip .preview--section:nth-child(2) {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex; }
+  .preview--overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    -webkit-transition: background 330ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: background 330ms cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(0, 0, 0, 0.7); }
+  .preview--action {
+    cursor: pointer;
+    position: relative;
+    z-index: 1; }
+    .preview--action i.material-icons {
+      font-size: 64px;
+      color: white;
+      -webkit-transition: all 330ms cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 330ms cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+      -webkit-transform: scale(0.8);
+      transform: scale(0.8); }
+      .preview--action i.material-icons.action__active {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1); }
+  .preview--progress {
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    height: 8px;
+    width: 100%;
+    background: #d05d84;
+    -webkit-transition: -webkit-transform 100ms linear;
+    transition: -webkit-transform 100ms linear;
+    transition: transform 100ms linear;
+    transition: transform 100ms linear, -webkit-transform 100ms linear; }
+  .preview--title {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 1; }
+
+.extra-preview {
+  height: 0;
+  width: 160px;
+  margin-right: 16px; }
 
 @media screen and (max-width: 450px) {
   .mobileshown {
@@ -587,7 +677,14 @@ footer {
     font-size: 20px;
     margin-bottom: 0; }
   .modal--block .block--section {
-    margin-bottom: 16px; } }
+    margin-bottom: 16px; }
+  .artist .preview {
+    width: 100%;
+    margin-right: 0; }
+    .artist .preview .preview--clip {
+      width: 100%; }
+  .artist .modal--title {
+    width: 80%; } }
 
 @media screen and (min-width: 451px) and (max-width: 990px) {
   .main {
@@ -613,6 +710,11 @@ body {
     opacity: 1;
     pointer-events: all; }
   body.tracks__visible .tracks .modal--card {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 1;
+    pointer-events: all; }
+  body.artist__visible .artist .modal--card {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     opacity: 1;

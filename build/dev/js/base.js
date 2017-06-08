@@ -1,6 +1,6 @@
 'use strict';
 
-var base = angular.module('base', ['home', 'albums', 'tracks', 'spotifySrvc']);
+var base = angular.module('base', ['home', 'albums', 'tracks', 'artist', 'spotifySrvc']);
 
 base.config(function ($locationProvider) {
   $locationProvider.html5Mode(true);

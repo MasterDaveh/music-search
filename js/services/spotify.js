@@ -239,6 +239,7 @@ spot.factory('spotify', function(ajax, arrays, lstorage, $timeout){
     search, searchMore,
     concatenateResults, normalize,
     authorize, 
-    getAlbumTracksByID, getAlbumsByArtistID, getTracksByArtistID, getAlbumsDetailsByID }
+    getAlbumTracksByID, getAlbumsByArtistID, getTracksByArtistID, getAlbumsDetailsByID
+  }
   
 });
