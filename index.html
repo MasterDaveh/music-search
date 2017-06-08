@@ -7,7 +7,7 @@
     <title>Music Search</title>
     <base href="/#">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="./build/dev/css/main.css" rel="stylesheet">
+    <link href="./music-search/build/prod/musicsearch.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
   </head>
   <body ng-app="base" ng-class="{'blocked-scroll': openAlbumsModal || openTracksModal || openArtistModal, 'albums__visible': openAlbumsModal, 'tracks__visible': openTracksModal, 'artist__visible': openArtistModal}">
@@ -67,8 +67,8 @@
         <div class="modal--header">
           <div class="header--background" style="background-image: url( {{ model.header.pic }} );" ng-attr-style="background-image: url( {{ model.header.pic }} )"></div>
           <div class="modal--header-overlay"></div>
-          <div class="modal--close mobilehidden" ng-click="close()"><img src="./assets/Images/Cross@2x.png"></div>
-          <div class="modal--close mobileshown" ng-click="close()"><img src="./assets/Images/Cross Dark@2x.png"></div>
+          <div class="modal--close mobilehidden" ng-click="close()"><img src="./music-search/assets/Images/Cross@2x.png"></div>
+          <div class="modal--close mobileshown" ng-click="close()"><img src="./music-search/assets/Images/Cross Dark@2x.png"></div>
           <div class="header--title">
             <div class="modal--subtitle mobileshown">Albums by</div>
             <div class="modal--title">{{ model.header.name }}</div>
@@ -102,8 +102,8 @@
         <div class="modal--header">
           <div class="header--background" style="background-image: url( {{ model.header.pic }} );" ng-attr-style="background-image: url( {{ model.header.pic }} )"></div>
           <div class="modal--header-overlay"></div>
-          <div class="modal--close mobilehidden" ng-click="close()"><img src="./assets/Images/Cross@2x.png"></div>
-          <div class="modal--close mobileshown" ng-click="close()"><img src="./assets/Images/Cross Dark@2x.png"></div>
+          <div class="modal--close mobilehidden" ng-click="close()"><img src="./music-search/assets/Images/Cross@2x.png"></div>
+          <div class="modal--close mobileshown" ng-click="close()"><img src="./music-search/assets/Images/Cross Dark@2x.png"></div>
           <div class="header--title">
             <div class="modal--subtitle mobileshown">Tracks {{ model.type === 'top_tracks'? 'by' : 'on' }}</div>
             <div class="modal--title">{{ model.header.name }}</div>
@@ -172,19 +172,11 @@
         </div>
       </div>
     </div>
-    <script src="./js/external/angular.js" type="text/javascript"></script>
-    <script src="./js/external/modernizr.min.js" type="text/javascript"></script>
-    <script src="./js/external/moment.min.js" type="text/javascript"></script>
-    <script src="./js/external/angular-smooth-scroll.js" type="text/javascript"></script>
-    <script src="./js/external/angular.audio.js" type="text/javascript"></script>
-    <script src="./build/dev/js/keys.js" type="text/javascript"></script>
-    <script src="./build/dev/js/base.js" type="text/javascript"></script>
-    <script src="./build/dev/js/utils.js" type="text/javascript"></script>
-    <script src="./build/dev/js/spotify.js" type="text/javascript"></script>
-    <script src="./build/dev/js/modalHelper.js" type="text/javascript"></script>
-    <script src="./build/dev/js/home.controller.js" type="text/javascript"></script>
-    <script src="./build/dev/js/albums.controller.js" type="text/javascript"></script>
-    <script src="./build/dev/js/tracks.controller.js" type="text/javascript"></script>
-    <script src="./build/dev/js/artist.controller.js" type="text/javascript"></script>
+    <script src="./music-search/js/external/angular.js" type="text/javascript"></script>
+    <script src="./music-search/js/external/modernizr.min.js" type="text/javascript"></script>
+    <script src="./music-search/js/external/moment.min.js" type="text/javascript"></script>
+    <script src="./music-search/js/external/angular-smooth-scroll.js" type="text/javascript"></script>
+    <script src="./music-search/js/external/angular.audio.js" type="text/javascript"></script>
+    <script src="./music-search/build/prod/musicsearch.bundle.js" type="text/javascript"></script>
   </body>
 </html>
