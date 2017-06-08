@@ -81,8 +81,19 @@ spot.factory('spotify', function (ajax, arrays, lstorage, $timeout) {
         // retrieve ACCESS_TOKEN from url
         var pageURL = window.location.href;
         var idx = pageURL.indexOf('access_token');
+        var expiration_offset = 0;
+
         token = pageURL.slice(pageURL.indexOf('=', idx) + 1, pageURL.indexOf('&', idx));
         lstorage.set(TOKEN_KEY, token);
+
+        idx = pageURL.indexOf('expires_in');
+        expiration_offset = pageURL.slice(pageURL.indexOf('=', idx) + 1, pageURL.indexOf('&', idx));
+        // removing the access_token will force the authorization process to begin 
+        // when the token will expire
+        $timeout(function () {
+          return lstorage.remove(TOKEN_KEY);
+        }, expiration_offset * 1000);
+
         window.location.href = pageURL.slice(0, pageURL.indexOf('#'));
       }
     }
@@ -110,6 +121,10 @@ spot.factory('spotify', function (ajax, arrays, lstorage, $timeout) {
     url = baseURL + '/search?q=' + query + '&market=' + DEFAULT_COUNTRY + '&type=';
     token = lstorage.get(TOKEN_KEY);
     headers = getCommonHeaders(token);
+
+    if (!token) {
+      authorize();
+    }
 
     if (searchArtist) {
       searchTerms.push('artist');
@@ -226,5 +241,6 @@ spot.factory('spotify', function (ajax, arrays, lstorage, $timeout) {
     search: search, searchMore: searchMore,
     concatenateResults: concatenateResults, normalize: normalize,
     authorize: authorize,
-    getAlbumTracksByID: getAlbumTracksByID, getAlbumsByArtistID: getAlbumsByArtistID, getTracksByArtistID: getTracksByArtistID, getAlbumsDetailsByID: getAlbumsDetailsByID };
+    getAlbumTracksByID: getAlbumTracksByID, getAlbumsByArtistID: getAlbumsByArtistID, getTracksByArtistID: getTracksByArtistID, getAlbumsDetailsByID: getAlbumsDetailsByID
+  };
 });

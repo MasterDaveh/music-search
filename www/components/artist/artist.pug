@@ -1,0 +1,48 @@
+.artist( ng-controller="artistCtrl" )
+  .modal--card
+    .modal--header
+      .header--background(
+        style="background-image: url( {{ model.header.pic }} )"
+        ng-attr-style="background-image: url( {{ model.header.pic }} )"
+      )
+      .modal--header-overlay
+      .modal--close.mobilehidden( ng-click="close()" )
+        img( src="./assets/Images/Cross@2x.png" )
+      .modal--close.mobileshown( ng-click="close()" )
+        img( src="./assets/Images/Cross Dark@2x.png" )
+      .header--title
+        .modal--title {{ model.header.name }}
+    .modal--mid.mobilehidden
+      span Previews
+      hr
+    .modal--body
+      .modal--spinner( ng-show="showLoader" )
+        .spinner
+          .spinner--bar
+          .spinner--bar
+          .spinner--bar
+      .modal--block
+        .preview( ng-repeat="track in model.tracks" )
+          .preview--clip(
+            style="background-image: url( {{ ::getTrackPic(track) }} )"
+            ng-attr-style="background-image: url( {{ ::getTrackPic(track) }} )"
+          )
+            .preview--overlay
+            .preview--section
+              .preview--action( 
+                ng-click="play(track)"
+              )
+                i.material-icons( ng-class="{'action__active': !track.playing}" ) play_circle_outline
+              .preview--action( 
+                ng-click="pause(track)"
+              )
+                i.material-icons( ng-class="{'action__active': track.playing}" ) pause_circle_outline
+              
+            .preview--section
+              .preview--title {{ track.name }}
+            .preview--progress(
+              style="transform: translateX( {{track.progress}}% )"
+            )
+        .extra-preview.mobilehidden
+        .extra-preview.mobilehidden
+        .extra-preview.mobilehidden

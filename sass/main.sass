@@ -7,6 +7,7 @@
 @import "../www/components/home/home"
 @import "../www/components/albums/albums"
 @import "../www/components/tracks/tracks"
+@import "../www/components/artist/artist"
 
 @import "mobile/mobile"
 
@@ -30,6 +31,13 @@ body
   
   &.tracks__visible
     .tracks
+      .modal--card
+        transform: translate(-50%, -50%)
+        opacity: 1
+        pointer-events: all
+
+  &.artist__visible
+    .artist
       .modal--card
         transform: translate(-50%, -50%)
         opacity: 1

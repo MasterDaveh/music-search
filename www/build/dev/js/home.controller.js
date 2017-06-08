@@ -18,10 +18,9 @@ home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper, 
 
   var modals = {
     albums: 'openAlbumsModal',
-    tracks: 'openTracksModal'
+    tracks: 'openTracksModal',
+    artist: 'openArtistModal'
   };
-
-  var allowedTypes = ['all_albums', 'top_tracks', 'album'];
 
   modalHelper.on('close', function (modalId) {
     $rootScope[modalId] = false;
@@ -47,6 +46,17 @@ home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper, 
       },
       albums: albums,
       modalId: modals.albums
+    };
+  };
+
+  var getArtistModel = function getArtistModel(item, tracks) {
+    return {
+      header: {
+        pic: $scope.getPic(item),
+        name: item.name
+      },
+      tracks: tracks,
+      modalId: modals.artist
     };
   };
 
@@ -91,8 +101,6 @@ home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper, 
   };
 
   $scope.show = function (item) {
-    if (allowedTypes.indexOf(item.type) === -1) return;
-
     if (item.type === 'all_albums') {
       modalHelper.clearModel(modals.albums);
       $rootScope.openAlbumsModal = true;
@@ -119,6 +127,15 @@ home.controller('homeCtrl', function ($scope, $rootScope, spotify, modalHelper, 
         var model = getTracksModel(item, tracks);
         modalHelper.setModel(model);
         modalHelper.publish('hideLoader', [modals.tracks]);
+      });
+    } else if (item.type === 'artist') {
+      modalHelper.clearModel(modals.artist);
+      $rootScope.openArtistModal = true;
+      modalHelper.publish('showLoader', [modals.artist]);
+      spotify.getTracksByArtistID(item.id, function (tracks) {
+        var model = getArtistModel(item, tracks);
+        modalHelper.setModel(model);
+        modalHelper.publish('hideLoader', [modals.artist]);
       });
     }
   };

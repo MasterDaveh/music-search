@@ -13,7 +13,7 @@ html
     
   body(
     ng-app="base"
-    ng-class="{'blocked-scroll': openAlbumsModal || openTracksModal, 'albums__visible': openAlbumsModal, 'tracks__visible': openTracksModal}"
+    ng-class="{'blocked-scroll': openAlbumsModal || openTracksModal || openArtistModal, 'albums__visible': openAlbumsModal, 'tracks__visible': openTracksModal, 'artist__visible': openArtistModal}"
   )
     include components/home/home.pug
     include includes/scripts.pug

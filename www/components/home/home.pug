@@ -34,7 +34,6 @@
       .result--card( 
         ng-repeat="result in results"
         ng-click="show(result)"
-        ng-class="{'result--card__nopointer': result.type === 'artist'}"
       )
         .card--pic( 
             style="background-image: url( {{ ::getPic(result) }} )"
@@ -62,9 +61,9 @@
             span.mobilehidden View 
             span Tracks
         .card--title {{ result.name }}
-      .extra--card.mobilehidden
-      .extra--card.mobilehidden
-      .extra--card.mobilehidden
+      .extra-card.mobilehidden
+      .extra-card.mobilehidden
+      .extra-card.mobilehidden
   .home--spinner( ng-show="showLowerLoader" )
     .spinner
       .spinner--bar
@@ -79,3 +78,4 @@
 
 include ../albums/albums.pug
 include ../tracks/tracks.pug
+include ../artist/artist.pug

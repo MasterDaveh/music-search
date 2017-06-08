@@ -1,0 +1,81 @@
+.artist
+  .modal
+    &--block
+      display: flex
+      flex-wrap: wrap
+      justify-content: center
+
+.preview  
+  border-radius: #{ $baseline / 4 }
+  overflow: hidden
+  margin:
+    right: $baseline
+    bottom: $baseline
+
+  &--clip
+    +size( #{ $baseline * 10 } )
+    position: relative
+
+    cursor: pointer
+    
+    background:
+      size: cover
+      repeat: no-repeat
+      position: center center
+
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+    .preview--section:nth-child(2)
+      display: flex
+    
+  &--overlay
+    position: absolute
+    top: 0
+    right: 0
+    left: 0
+    bottom: 0
+    z-index: 0
+
+    transition: background 330ms $bezier
+    background: rgba(black, 0.7)
+  
+  &--action
+    cursor: pointer
+    position: relative
+    z-index: 1
+
+    i.material-icons
+      +font(( s: #{ $baseline * 4 }, c: white ))
+
+      transition: all 330ms $bezier
+      opacity: 0
+      transform: scale(0.8)
+
+      &.action__active
+        opacity: 1
+        transform: scale(1)
+  
+  &--progress
+    position: absolute
+    bottom: 0
+    left: -100%
+    height: #{ $baseline / 2 }
+    width: 100%
+    background: $lpink
+
+    transition: transform 100ms linear
+  
+  &--title
+    +font(( s: $baseline, c: white, w: 500 ))
+    text-align: center
+    position: relative
+    z-index: 1
+
+// hack to keep exceeding cards left-aligned(see extra-card in _home.sass)
+.extra-preview
+  height: 0
+  width: #{ $baseline * 10 }
+  margin-right: $baseline

@@ -1,0 +1,44 @@
+
+<div class="artist" ng-controller="artistCtrl">
+  <div class="modal--card">
+    <div class="modal--header">
+      <div class="header--background" style="background-image: url( {{ model.header.pic }} );" ng-attr-style="background-image: url( {{ model.header.pic }} )"></div>
+      <div class="modal--header-overlay"></div>
+      <div class="modal--close mobilehidden" ng-click="close()"><img src="./assets/Images/Cross@2x.png"/></div>
+      <div class="modal--close mobileshown" ng-click="close()"><img src="./assets/Images/Cross Dark@2x.png"/></div>
+      <div class="header--title">
+        <div class="modal--title">{{ model.header.name }}</div>
+      </div>
+    </div>
+    <div class="modal--mid mobilehidden"><span>Previews</span>
+      <hr/>
+    </div>
+    <div class="modal--body">
+      <div class="modal--spinner" ng-show="showLoader">
+        <div class="spinner">
+          <div class="spinner--bar"></div>
+          <div class="spinner--bar"></div>
+          <div class="spinner--bar"></div>
+        </div>
+      </div>
+      <div class="modal--block">
+        <div class="preview" ng-repeat="track in model.tracks">
+          <div class="preview--clip" style="background-image: url( {{ ::getTrackPic(track) }} );" ng-attr-style="background-image: url( {{ ::getTrackPic(track) }} )">
+            <div class="preview--overlay"></div>
+            <div class="preview--section">
+              <div class="preview--action" ng-click="play(track)"><i class="material-icons" ng-class="{'action__active': !track.playing}">play_circle_outline</i></div>
+              <div class="preview--action" ng-click="pause(track)"><i class="material-icons" ng-class="{'action__active': track.playing}">pause_circle_outline</i></div>
+            </div>
+            <div class="preview--section">
+              <div class="preview--title">{{ track.name }}</div>
+            </div>
+            <div class="preview--progress" style="transform: translateX( {{track.progress}}% );"></div>
+          </div>
+        </div>
+        <div class="extra-preview mobilehidden"></div>
+        <div class="extra-preview mobilehidden"></div>
+        <div class="extra-preview mobilehidden"></div>
+      </div>
+    </div>
+  </div>
+</div>
