@@ -4,7 +4,8 @@
   "description": "A music search engine powered by Spotify APIs",
   "main": "index.js",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "deploy": "git subtree push --prefix www upstream gh-pages"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "gulp-autoprefixer": "^4.0.0",
     "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
+    "gulp-ng-annotate": "^2.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-pug": "^3.3.0",
     "gulp-rename": "^1.2.2",
