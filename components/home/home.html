@@ -3,10 +3,10 @@
   <div class="modal--overlay"></div>
   <div class="main">
     <div class="main--header">
-      <div class="header--block"><img id="gklabel" src="assets/Images/gl-logo@2x.png"/></div>
+      <div class="header--block"><img id="gklabel" src="music-search/assets/Images/gl-logo@2x.png"/></div>
       <div class="header--block">Powered by Spotify</div>
     </div>
-    <div class="main--hero"><img id="headset" src="assets/Images/hero-img@2x.png"/><img id="arrow" ng-click="scrollDown()" src="assets/Images/Page 1@2x.png"/></div>
+    <div class="main--hero"><img id="headset" src="music-search/assets/Images/hero-img@2x.png"/><img id="arrow" ng-click="scrollDown()" src="music-search/assets/Images/Page 1@2x.png"/></div>
   </div>
   <form class="search">
     <div class="search--box">
@@ -23,14 +23,14 @@
     </div>
   </div>
   <div class="results--wrapper">
-    <div class="results--empty mobilehidden" ng-if="!results || results.length === 0"><img id="glass" src="assets/Images/Magnify@2x.png"/><span>Your results will appear here</span></div>
+    <div class="results--empty mobilehidden" ng-if="!results || results.length === 0"><img id="glass" src="music-search/assets/Images/Magnify@2x.png"/><span>Your results will appear here</span></div>
     <div class="results--matches" ng-if="results.length &gt; 0">
       <div class="result--card" ng-repeat="result in results" ng-click="show(result)">
         <div class="card--pic" style="background-image: url( {{ ::getPic(result) }} );" ng-attr-style="background-image: url( {{ ::getPic(result) }} )" ng-class="{'card--pic__blurred': {{ ::showBlurred(result) }} }">
-          <div class="card--badge"><img ng-if="result.type === 'album'" src="assets/Images/album-icon@2x.png"/><img ng-if="result.type === 'artist'" src="assets/Images/artist-icon@2x.png"/></div>
+          <div class="card--badge"><img ng-if="result.type === 'album'" src="music-search/assets/Images/album-icon@2x.png"/><img ng-if="result.type === 'artist'" src="music-search/assets/Images/artist-icon@2x.png"/></div>
           <div class="card--overlay"></div>
         </div>
-        <div class="card--viewall" ng-if="::showBlurred(result)"><img class="mobilehidden" src="assets/Images/Bitmap@2x.png"/><span class="viewall--text" ng-if="result.type === 'all_albums'"> <span class="mobilehidden">View</span><span> Albums</span></span><span class="viewall--text" ng-if="result.type === 'top_tracks'"> <span class="mobilehidden">View </span><span>Tracks</span></span></div>
+        <div class="card--viewall" ng-if="::showBlurred(result)"><img class="mobilehidden" src="music-search/assets/Images/Bitmap@2x.png"/><span class="viewall--text" ng-if="result.type === 'all_albums'"> <span class="mobilehidden">View</span><span> Albums</span></span><span class="viewall--text" ng-if="result.type === 'top_tracks'"> <span class="mobilehidden">View </span><span>Tracks</span></span></div>
         <div class="card--title">{{ result.name }}</div>
       </div>
       <div class="extra-card mobilehidden"></div>
@@ -55,8 +55,8 @@
     <div class="modal--header">
       <div class="header--background" style="background-image: url( {{ model.header.pic }} );" ng-attr-style="background-image: url( {{ model.header.pic }} )"></div>
       <div class="modal--header-overlay"></div>
-      <div class="modal--close mobilehidden" ng-click="close()"><img src="./assets/Images/Cross@2x.png"/></div>
-      <div class="modal--close mobileshown" ng-click="close()"><img src="./assets/Images/Cross Dark@2x.png"/></div>
+      <div class="modal--close mobilehidden" ng-click="close()"><img src="./music-search/assets/Images/Cross@2x.png"/></div>
+      <div class="modal--close mobileshown" ng-click="close()"><img src="./music-search/assets/Images/Cross Dark@2x.png"/></div>
       <div class="header--title">
         <div class="modal--subtitle mobileshown">Albums by</div>
         <div class="modal--title">{{ model.header.name }}</div>
@@ -90,8 +90,8 @@
     <div class="modal--header">
       <div class="header--background" style="background-image: url( {{ model.header.pic }} );" ng-attr-style="background-image: url( {{ model.header.pic }} )"></div>
       <div class="modal--header-overlay"></div>
-      <div class="modal--close mobilehidden" ng-click="close()"><img src="./assets/Images/Cross@2x.png"/></div>
-      <div class="modal--close mobileshown" ng-click="close()"><img src="./assets/Images/Cross Dark@2x.png"/></div>
+      <div class="modal--close mobilehidden" ng-click="close()"><img src="./music-search/assets/Images/Cross@2x.png"/></div>
+      <div class="modal--close mobileshown" ng-click="close()"><img src="./music-search/assets/Images/Cross Dark@2x.png"/></div>
       <div class="header--title">
         <div class="modal--subtitle mobileshown">Tracks {{ model.type === 'top_tracks'? 'by' : 'on' }}</div>
         <div class="modal--title">{{ model.header.name }}</div>
@@ -122,8 +122,8 @@
     <div class="modal--header">
       <div class="header--background" style="background-image: url( {{ model.header.pic }} );" ng-attr-style="background-image: url( {{ model.header.pic }} )"></div>
       <div class="modal--header-overlay"></div>
-      <div class="modal--close mobilehidden" ng-click="close()"><img src="./assets/Images/Cross@2x.png"/></div>
-      <div class="modal--close mobileshown" ng-click="close()"><img src="./assets/Images/Cross Dark@2x.png"/></div>
+      <div class="modal--close mobilehidden" ng-click="close()"><img src="./music-search/assets/Images/Cross@2x.png"/></div>
+      <div class="modal--close mobileshown" ng-click="close()"><img src="./music-search/assets/Images/Cross Dark@2x.png"/></div>
       <div class="header--title">
         <div class="modal--title">{{ model.header.name }}</div>
       </div>

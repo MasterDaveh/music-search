@@ -3,13 +3,13 @@
   .main
     .main--header
       .header--block
-        img#gklabel( src="assets/Images/gl-logo@2x.png" )
+        img#gklabel( src="music-search/assets/Images/gl-logo@2x.png" )
       .header--block Powered by Spotify
     .main--hero
-      img#headset( src="assets/Images/hero-img@2x.png" )
+      img#headset( src="music-search/assets/Images/hero-img@2x.png" )
       img#arrow( 
         ng-click="scrollDown()"
-        src="assets/Images/Page 1@2x.png"
+        src="music-search/assets/Images/Page 1@2x.png"
       )
   form.search
     .search--box
@@ -27,7 +27,7 @@
       .spinner--bar
   .results--wrapper
     .results--empty.mobilehidden( ng-if="!results || results.length === 0" )
-      img#glass( src="assets/Images/Magnify@2x.png" )
+      img#glass( src="music-search/assets/Images/Magnify@2x.png" )
       span Your results will appear here
 
     .results--matches( ng-if="results.length > 0" )
@@ -43,17 +43,17 @@
           .card--badge
             img( 
               ng-if="result.type === 'album'"
-              src="assets/Images/album-icon@2x.png"
+              src="music-search/assets/Images/album-icon@2x.png"
             )
             img( 
               ng-if="result.type === 'artist'"
-              src="assets/Images/artist-icon@2x.png"
+              src="music-search/assets/Images/artist-icon@2x.png"
             )
           .card--overlay
         .card--viewall( 
           ng-if="::showBlurred(result)"
         )
-          img.mobilehidden( src="assets/Images/Bitmap@2x.png" )
+          img.mobilehidden( src="music-search/assets/Images/Bitmap@2x.png" )
           span.viewall--text( ng-if="result.type === 'all_albums'" ) 
             span.mobilehidden View
             span  Albums
