@@ -4,7 +4,8 @@
 This is a project I made as a test for a company, so I'll be describing more in depth my solution below.
 
 # Initial considerations
-I chose to add pug as an HTML preprocessor because of its ability to include external templates easily and the simplicity and straighforwardness of the syntax. As a task runner I went with Gulp over others because I found its syntax easier to reason about than, say, the huge configuration of Grunt files.
+I chose to add pug as an HTML preprocessor because of its ability to include external templates easily and the simplicity and straighforwardness of the syntax. As a task runner I went with Gulp over others because I found its syntax easier to reason about than, say, the huge configuration of Grunt files.<br>
+Live demo at: https://masterdaveh.github.io/music-search/
 
 # Design
 I followed [this](https://invis.io/XVAJ2MMK7) design as a reference.<br>
